@@ -1,1 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>My Website</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <div class="logo">MY WEBSITE</div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+
+        <div class="hero-content">
+            <p class="small-text">WELCOME 👋</p>
+
+            <h1>Welcome to<br>
+                <span>My Website</span>
+            </h1>
+
+            <p class="description">
+                A modern, responsive website built from scratch.
+            </p>
+
+            <div class="buttons">
+                <a href="#projects" class="btn primary">Explore</a>
+                <a href="#contact" class="btn secondary">Contact</a>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- About -->
+    <section id="about" class="section">
+
+        <p class="section-label">ABOUT</p>
+
+        <h2>Who We Are</h2>
+
+        <p class="section-text">
+            This section can contain information about the website,
+            project, person, organization, or anything else you want.
+        </p>
+
+    </section>
+
+
+    <!-- Projects -->
+    <section id="projects" class="section projects">
+
+        <p class="section-label">PROJECTS</p>
+
+        <h2>What We're Building</h2>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Project One</h3>
+                <p>
+                    Description of your first project goes here.
+                </p>
+                <button onclick="showMessage('Project One')">
+                    View
+                </button>
+            </div>
+
+            <div class="card">
+                <h3>Project Two</h3>
+                <p>
+                    Description of your second project goes here.
+                </p>
+                <button onclick="showMessage('Project Two')">
+                    View
+                </button>
+            </div>
+
+            <div class="card">
+                <h3>Project Three</h3>
+                <p>
+                    Description of your third project goes here.
+                </p>
+                <button onclick="showMessage('Project Three')">
+                    View
+                </button>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Contact -->
+    <section id="contact" class="section contact">
+
+        <p class="section-label">CONTACT</p>
+
+        <h2>Let's Connect</h2>
+
+        <p class="section-text">
+            Have something to say? Get in touch.
+        </p>
+
+        <button class="btn primary" onclick="contactMessage()">
+            Say Hello
+        </button>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 My Website. Built with ❤️</p>
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+  </html>
