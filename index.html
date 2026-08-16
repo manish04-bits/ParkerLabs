@@ -4,133 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Website</title>
+    <title>One Important Question 💌</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- Navigation -->
-    <header class="navbar">
-        <div class="logo">MY WEBSITE</div>
+    <div class="hearts"></div>
 
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
+    <main class="container">
+
+        <!-- INTRO -->
+        <section class="card" id="intro">
+
+            <div class="emoji">👀</div>
+
+            <h1>Hey You...</h1>
+
+            <p>
+                I have something very important to ask you.
+            </p>
+
+            <button class="primary" onclick="startProposal()">
+                I'm Listening 👂
+            </button>
+
+        </section>
 
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
+        <!-- QUESTION -->
+        <section class="card hidden" id="question">
 
-        <div class="hero-content">
-            <p class="small-text">WELCOME 👋</p>
+            <div class="emoji">😶‍🌫️</div>
 
-            <h1>Welcome to<br>
-                <span>My Website</span>
-            </h1>
+            <h1>Okay... here goes.</h1>
 
-            <p class="description">
-                A modern, responsive website built from scratch.
+            <p class="message">
+                We've been friends for quite a while...
+                <br><br>
+                We've laughed together.
+                <br>
+                We've annoyed each other.
+                <br>
+                We've survived each other's nonsense. 😂
+            </p>
+
+            <button class="primary" onclick="showProposal()">
+                Continue 👀
+            </button>
+
+        </section>
+
+
+        <!-- PROPOSAL -->
+        <section class="card hidden" id="proposal">
+
+            <div class="emoji big">💌</div>
+
+            <h1>So I have one question...</h1>
+
+            <h2>
+                Should we ruin this friendship? ❤️
+            </h2>
+
+            <p>
+                And maybe turn it into something a little more special? 👀
             </p>
 
             <div class="buttons">
-                <a href="#projects" class="btn primary">Explore</a>
-                <a href="#contact" class="btn secondary">Contact</a>
-            </div>
-        </div>
 
-    </section>
-
-
-    <!-- About -->
-    <section id="about" class="section">
-
-        <p class="section-label">ABOUT</p>
-
-        <h2>Who We Are</h2>
-
-        <p class="section-text">
-            This section can contain information about the website,
-            project, person, organization, or anything else you want.
-        </p>
-
-    </section>
-
-
-    <!-- Projects -->
-    <section id="projects" class="section projects">
-
-        <p class="section-label">PROJECTS</p>
-
-        <h2>What We're Building</h2>
-
-        <div class="cards">
-
-            <div class="card">
-                <h3>Project One</h3>
-                <p>
-                    Description of your first project goes here.
-                </p>
-                <button onclick="showMessage('Project One')">
-                    View
+                <button
+                    id="yesBtn"
+                    class="yes"
+                    onclick="yesClicked()">
+                    YES ❤️
                 </button>
-            </div>
 
-            <div class="card">
-                <h3>Project Two</h3>
-                <p>
-                    Description of your second project goes here.
-                </p>
-                <button onclick="showMessage('Project Two')">
-                    View
+                <button
+                    id="noBtn"
+                    class="no"
+                    onclick="noClicked()">
+                    NO 😭
                 </button>
+
             </div>
 
-            <div class="card">
-                <h3>Project Three</h3>
-                <p>
-                    Description of your third project goes here.
-                </p>
-                <button onclick="showMessage('Project Three')">
-                    View
-                </button>
-            </div>
+            <p id="hint"></p>
 
-        </div>
-
-    </section>
+        </section>
 
 
-    <!-- Contact -->
-    <section id="contact" class="section contact">
+        <!-- SUCCESS -->
+        <section class="card hidden" id="success">
 
-        <p class="section-label">CONTACT</p>
+            <div class="emoji celebration">🎉</div>
 
-        <h2>Let's Connect</h2>
+            <h1>WELL...</h1>
 
-        <p class="section-text">
-            Have something to say? Get in touch.
-        </p>
+            <h2>
+                I guess we're doing this. 😭❤️
+            </h2>
 
-        <button class="btn primary" onclick="contactMessage()">
-            Say Hello
-        </button>
+            <p>
+                Friendship status:
+                <strong>Successfully Complicated</strong> 💀
+            </p>
 
-    </section>
+            <button class="primary" onclick="restart()">
+                Replay 🔄
+            </button>
 
+        </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2026 My Website. Built with ❤️</p>
-    </footer>
+    </main>
 
 
     <script src="script.js"></script>
 
 </body>
-  </html>
+</html>
