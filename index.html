@@ -3,128 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>One Important Question 💌</title>
-
+    <title>The Manish Files 🕷️</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="hearts"></div>
+    <div class="web web1"></div>
+    <div class="web web2"></div>
 
-    <main class="container">
+    <!-- LANDING PAGE -->
+    <section id="home" class="screen active">
+        <div class="classified">● CLASSIFIED FILE</div>
 
-        <!-- INTRO -->
-        <section class="card" id="intro">
+        <div class="spider">🕷️</div>
 
-            <div class="emoji">👀</div>
+        <h1>THE MANISH<br><span>FILES</span></h1>
 
-            <h1>Hey You...</h1>
+        <p class="subtitle">How well do you actually know Manish?</p>
 
-            <p>
-                I have something very important to ask you.
-            </p>
+        <div class="warning">
+            <span>⚠</span>
+            <p>7 QUESTIONS • NO CHEATING • NO SECOND CHANCES</p>
+        </div>
 
-            <button class="primary" onclick="startProposal()">
-                I'm Listening 👂
+        <button onclick="startQuiz()" class="main-btn">
+            ACCESS THE FILE →
+        </button>
+
+        <p class="small">Friend access only • M-001</p>
+    </section>
+
+
+    <!-- QUIZ PAGE -->
+    <section id="quiz" class="screen">
+
+        <div class="topbar">
+            <span>MANISH FILES</span>
+            <span id="questionNumber">01 / 07</span>
+        </div>
+
+        <div class="progress-container">
+            <div id="progress"></div>
+        </div>
+
+        <div class="question-box">
+
+            <div class="question-tag">SUBJECT ANALYSIS</div>
+
+            <h2 id="question"></h2>
+
+            <div id="options"></div>
+
+            <div id="feedback"></div>
+
+            <button id="nextBtn" onclick="nextQuestion()">
+                NEXT →
             </button>
 
-        </section>
+        </div>
+
+        <div class="score">
+            XP: <span id="score">0</span>
+        </div>
+
+    </section>
 
 
-        <!-- QUESTION -->
-        <section class="card hidden" id="question">
+    <!-- RESULT PAGE -->
+    <section id="result" class="screen">
 
-            <div class="emoji">😶‍🌫️</div>
+        <div class="classified">● FILE COMPLETE</div>
 
-            <h1>Okay... here goes.</h1>
+        <div class="result-icon">🕷️</div>
 
-            <p class="message">
-                We've been friends for quite a while...
-                <br><br>
-                We've laughed together.
-                <br>
-                We've annoyed each other.
-                <br>
-                We've survived each other's nonsense. 😂
-            </p>
+        <h1 id="resultTitle"></h1>
 
-            <button class="primary" onclick="showProposal()">
-                Continue 👀
-            </button>
+        <p id="resultMessage"></p>
 
-        </section>
+        <div class="final-score">
+            <span id="finalScore">0</span>
+            <small>/ 70 XP</small>
+        </div>
 
+        <div id="reward"></div>
 
-        <!-- PROPOSAL -->
-        <section class="card hidden" id="proposal">
+        <button onclick="restartQuiz()" class="main-btn">
+            PLAY AGAIN ↻
+        </button>
 
-            <div class="emoji big">💌</div>
-
-            <h1>So I have one question...</h1>
-
-            <h2>
-                Should we ruin this friendship? ❤️
-            </h2>
-
-            <p>
-                And maybe turn it into something a little more special like spouse? 👀
-            </p>
-
-            <div class="buttons">
-
-                <button
-                    id="yesBtn"
-                    class="yes"
-                    onclick="yesClicked()">
-                    YES ❤️
-                </button>
-
-                <button
-                    id="noBtn"
-                    class="no"
-                    onclick="noClicked()">
-                    NO 😭
-                </button>
-
-            </div>
-
-            <p id="hint"></p>
-
-        </section>
-
-
-        <!-- SUCCESS -->
-        <section class="card hidden" id="success">
-
-            <div class="emoji celebration">🎉</div>
-
-            <h1>WELL...</h1>
-
-            <h2>
-                I guess we're doing this. 😭❤️
-            </h2>
-
-            <p>
-                Friendship status:
-                <strong>Successfully Complicated</strong> 💀
-            </p>
-            <p>
-             Something better status:
-                <strong>Successfully started from now</strong> 💀
-            </p>
-
-            <button class="primary" onclick="restart()">
-                Replay 🔄
-            </button>
-
-        </section>
-
-    </main>
+    </section>
 
 
     <script src="script.js"></script>
-
 </body>
 </html>
