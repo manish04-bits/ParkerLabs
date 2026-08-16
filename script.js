@@ -1,170 +1,257 @@
-const intro = document.getElementById("intro");
-const question = document.getElementById("question");
-const proposal = document.getElementById("proposal");
-const success = document.getElementById("success");
+const questions = [
 
-const noBtn = document.getElementById("noBtn");
-const hint = document.getElementById("hint");
+    {
+        question: "If Manish suddenly says \"Bro, I have an idea\", what should you expect?",
+        options: [
+            "Something completely normal",
+            "A serious life-changing plan",
+            "Some random nonsense that somehow becomes fun",
+            "He's finally becoming productive 😭"
+        ],
+        answer: 2,
+        reward: "🎁 +10 XP — Congratulations. You survived another Manish idea."
+    },
 
+    {
+        question: "If Manish gets a completely free day, what would he enjoy doing?",
+        options: [
+            "Make a detailed schedule",
+            "Go outside all day",
+            "Absolutely nothing 😂",
+            "Clean everything"
+        ],
+        answer: 2,
+        reward: "🎁 +10 XP — You discovered Manish's secret talent: doing absolutely nothing."
+    },
 
-/* SCREEN SWITCHER */
+    {
+        question: "What would Manish probably watch when he feels bored?",
+        options: [
+            "Random documentaries",
+            "Sports highlights",
+            "One Piece or some anime stuff",
+            "The news"
+        ],
+        answer: 2,
+        reward: "🎁 +10 XP — You know the pirate life. Respect. 🏴‍☠️"
+    },
 
-function hideAll() {
+    {
+        question: "What would Manish probably do when he's completely free and has nothing to do?",
+        options: [
+            "Listen to music 🎧",
+            "Watch random stuff",
+            "Talk to ChatGPT 🤖",
+            "Honestly… probably rotate between all three"
+        ],
+        answer: 3,
+        reward: "🎁 +10 XP — You understand the Manish boredom cycle."
+    },
 
-    intro.classList.add("hidden");
-    question.classList.add("hidden");
-    proposal.classList.add("hidden");
-    success.classList.add("hidden");
+    {
+        question: "What's most likely to make Manish laugh unexpectedly?",
+        options: [
+            "A perfectly planned joke",
+            "Something completely random",
+            "A motivational speech",
+            "A serious conversation"
+        ],
+        answer: 1,
+        reward: "🎁 +10 XP — Apparently randomness is comedy now. 😂"
+    },
 
-}
+    {
+        question: "If Manish says \"I'm coming in 5 minutes\", what does that actually mean?",
+        options: [
+            "Exactly 5 minutes",
+            "10 minutes",
+            "Eventually 😂",
+            "He's already there"
+        ],
+        answer: 2,
+        reward: "🎁 +10 XP — You understand the ancient Manish time system."
+    },
 
-
-function startProposal() {
-
-    hideAll();
-
-    question.classList.remove("hidden");
-
-}
-
-
-function showProposal() {
-
-    hideAll();
-
-    proposal.classList.remove("hidden");
-
-}
-
-
-/* YES */
-
-function yesClicked() {
-
-    hideAll();
-
-    success.classList.remove("hidden");
-
-    createConfetti();
-
-    for (let i = 0; i < 25; i++) {
-        createHeart();
+    {
+        question: "What's Manish most likely to do when absolutely nothing interesting is happening?",
+        options: [
+            "Go outside and find something to do",
+            "Start a random conversation",
+            "Find something productive",
+            "Nothing. Absolutely nothing. 🗿"
+        ],
+        answer: 3,
+        reward: "🎁 +10 XP — Congratulations. You understand the ancient art of doing NOTHING."
     }
 
+];
+
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+function startQuiz() {
+
+    currentQuestion = 0;
+    score = 0;
+
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("quiz").classList.add("active");
+
+    loadQuestion();
 }
 
+function loadQuestion() {
 
-/* RUNNING NO BUTTON */
+    answered = false;
 
-let noCount = 0;
+    const q = questions[currentQuestion];
 
-function noClicked() {
+    document.getElementById("question").textContent = q.question;
 
-    noCount++;
+    document.getElementById("questionNumber").textContent =
+        `${String(currentQuestion + 1).padStart(2, "0")} / 07`;
 
-    const messages = [
-        "Are you sure? 👀",
-        "Think again 😭",
-        "That button seems suspicious...",
-        "You really want to press NO? 💀",
-        "Nice try 😂",
-        "The universe says NO to your NO."
-    ];
+    document.getElementById("progress").style.width =
+        `${((currentQuestion) / questions.length) * 100}%`;
 
-    hint.textContent =
-        messages[Math.min(noCount - 1, messages.length - 1)];
+    document.getElementById("score").textContent = score;
 
+    const optionsContainer = document.getElementById("options");
 
-    const x = Math.random() * 240 - 120;
-    const y = Math.random() * 120 - 60;
+    optionsContainer.innerHTML = "";
 
-    noBtn.style.transform =
-        `translate(${x}px, ${y}px)`;
+    document.getElementById("feedback").textContent = "";
+
+    document.getElementById("nextBtn").style.display = "none";
+
+    q.options.forEach((option, index) => {
+
+        const button = document.createElement("button");
+
+        button.className = "option";
+        button.textContent = option;
+
+        button.onclick = () => selectAnswer(index, button);
+
+        optionsContainer.appendChild(button);
+    });
 }
 
+function selectAnswer(selected, clickedButton) {
 
-/* CONFETTI */
+    if (answered) return;
 
-function createConfetti() {
+    answered = true;
 
-    for (let i = 0; i < 120; i++) {
+    const q = questions[currentQuestion];
 
-        const piece = document.createElement("div");
+    const allOptions = document.querySelectorAll(".option");
 
-        piece.classList.add("confetti");
+    allOptions.forEach(button => {
+        button.disabled = true;
+    });
 
-        piece.style.left =
-            Math.random() * 100 + "vw";
+    if (selected === q.answer) {
 
-        piece.style.animationDelay =
-            Math.random() * 1.5 + "s";
+        clickedButton.classList.add("correct");
 
-        piece.style.transform =
-            `rotate(${Math.random() * 360}deg)`;
+        score += 10;
 
-        document.body.appendChild(piece);
+        document.getElementById("feedback").innerHTML =
+            `<span style="color:#00ff78">${q.reward}</span>`;
 
+    } else {
 
-        setTimeout(() => {
+        clickedButton.classList.add("wrong");
 
-            piece.remove();
+        allOptions[q.answer].classList.add("correct");
 
-        }, 4000);
+        document.getElementById("feedback").innerHTML =
+            `<span style="color:#ff5050">
+            ❌ WRONG — You have officially disappointed Manish. 😂
+            </span>`;
+    }
+
+    document.getElementById("score").textContent = score;
+
+    document.getElementById("nextBtn").style.display = "inline-block";
+}
+
+function nextQuestion() {
+
+    currentQuestion++;
+
+    if (currentQuestion >= questions.length) {
+        showResult();
+        return;
+    }
+
+    loadQuestion();
+}
+
+function showResult() {
+
+    document.getElementById("quiz").classList.remove("active");
+    document.getElementById("result").classList.add("active");
+
+    document.getElementById("finalScore").textContent = score;
+
+    let title;
+    let message;
+
+    if (score === 70) {
+
+        title = "🕷️ MANISH LORE MASTER";
+
+        message =
+            "YOU ACTUALLY KNOW MANISH. This is either impressive or slightly concerning.";
+
+        document.getElementById("reward").textContent =
+            "🏆 SECRET REWARD UNLOCKED — Certified Real One.";
+
+    } else if (score >= 50) {
+
+        title = "🔥 CERTIFIED HOMIE";
+
+        message =
+            "Okay... you actually pay attention. Manish might allow you to stay in the friend group.";
+
+        document.getElementById("reward").textContent =
+            "🎁 Reward unlocked: Respect +10.";
+
+    } else if (score >= 30) {
+
+        title = "👀 CASUAL OBSERVER";
+
+        message =
+            "You know some Manish lore. But there's still a LOT you don't know.";
+
+        document.getElementById("reward").textContent =
+            "🎁 Reward: You may continue your investigation.";
+
+    } else {
+
+        title = "🥔 WHO EVEN ARE YOU?";
+
+        message =
+            "You might have met Manish once. Please investigate further.";
+
+        document.getElementById("reward").textContent =
+            "💀 Reward: Absolutely nothing. Just like Manish's free day.";
 
     }
 
+    document.getElementById("resultTitle").textContent = title;
+
+    document.getElementById("resultMessage").textContent = message;
 }
 
+function restartQuiz() {
 
-/* FLOATING HEART */
+    document.getElementById("result").classList.remove("active");
+    document.getElementById("home").classList.add("active");
 
-function createHeart() {
-
-    const heart =
-        document.createElement("div");
-
-    heart.classList.add("heart");
-
-    heart.innerHTML =
-        ["❤️", "💗", "💖", "💕", "💘"][
-            Math.floor(Math.random() * 5)
-        ];
-
-    heart.style.left =
-        Math.random() * 100 + "vw";
-
-    heart.style.animationDuration =
-        (3 + Math.random() * 4) + "s";
-
-    heart.style.fontSize =
-        (15 + Math.random() * 25) + "px";
-
-    document.querySelector(".hearts")
-        .appendChild(heart);
-
-
-    setTimeout(() => {
-
-        heart.remove();
-
-    }, 7000);
-
-}
-
-
-/* CONTINUOUS HEARTS */
-
-setInterval(() => {
-
-    createHeart();
-
-}, 1200);
-
-
-/* RESTART */
-
-function restart() {
-
-    location.reload();
-
+    score = 0;
+    currentQuestion = 0;
 }
