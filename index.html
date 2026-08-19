@@ -3,98 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Manish Files 🕷️</title>
+
+    <title>Manish Arcade 🎮</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="web web1"></div>
-    <div class="web web2"></div>
+<header>
+    <div class="logo">🕷️ MANISH<span>ARCADE</span></div>
 
-    <!-- LANDING PAGE -->
-    <section id="home" class="screen active">
-        <div class="classified">● CLASSIFIED FILE</div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#games">Games</a>
+        <a href="#about">About</a>
+    </nav>
+</header>
 
-        <div class="spider">🕷️</div>
 
-        <h1>THE MANISH<br><span>FILES</span></h1>
+<section class="hero" id="home">
 
-        <p class="subtitle">How well do you actually know Manish?</p>
+    <div class="hero-content">
 
-        <div class="warning">
-            <span>⚠</span>
-            <p>7 QUESTIONS • NO CHEATING • NO SECOND CHANCES</p>
+        <p class="small-title">WELCOME TO</p>
+
+        <h1>
+            MANISH<br>
+            <span>ARCADE</span>
+        </h1>
+
+        <p class="description">
+            Your mini gaming universe.
+            Pick a game, hit play and have fun.
+        </p>
+
+        <a href="#games" class="play-button">
+            🎮 PLAY NOW
+        </a>
+
+    </div>
+
+</section>
+
+
+<section class="games-section" id="games">
+
+    <div class="section-title">
+
+        <p>CHOOSE YOUR GAME</p>
+
+        <h2>🎮 GAME LIBRARY</h2>
+
+    </div>
+
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="🔎 Search games..."
+            onkeyup="searchGames()"
+        >
+
+    </div>
+
+
+    <div class="game-grid" id="gameGrid">
+
+
+        <!-- Snake -->
+
+        <div class="game-card">
+
+            <div class="game-icon">🐍</div>
+
+            <div class="game-info">
+
+                <h3>Snake</h3>
+
+                <p>
+                    Eat, grow and try to beat your high score.
+                </p>
+
+                <a href="games/snake.html" class="game-button">
+                    PLAY →
+                </a>
+
+            </div>
+
         </div>
 
-        <button onclick="startQuiz()" class="main-btn">
-            ACCESS THE FILE →
-        </button>
 
-        <p class="small">Friend access only • M-001</p>
-    </section>
+        <!-- Tic Tac Toe -->
 
+        <div class="game-card">
 
-    <!-- QUIZ PAGE -->
-    <section id="quiz" class="screen">
+            <div class="game-icon">❌⭕</div>
 
-        <div class="topbar">
-            <span>MANISH FILES</span>
-            <span id="questionNumber">01 / 07</span>
-        </div>
+            <div class="game-info">
 
-        <div class="progress-container">
-            <div id="progress"></div>
-        </div>
+                <h3>Tic Tac Toe</h3>
 
-        <div class="question-box">
+                <p>
+                    Classic X and O battle.
+                </p>
 
-            <div class="question-tag">SUBJECT ANALYSIS</div>
+                <a href="games/tic-tac-toe.html" class="game-button">
+                    PLAY →
+                </a>
 
-            <h2 id="question"></h2>
-
-            <div id="options"></div>
-
-            <div id="feedback"></div>
-
-            <button id="nextBtn" onclick="nextQuestion()">
-                NEXT →
-            </button>
+            </div>
 
         </div>
 
-        <div class="score">
-            XP: <span id="score">0</span>
+
+        <!-- Flappy -->
+
+        <div class="game-card">
+
+            <div class="game-icon">🐦</div>
+
+            <div class="game-info">
+
+                <h3>Flappy Bird</h3>
+
+                <p>
+                    Fly through the pipes and survive.
+                </p>
+
+                <a href="games/flappy.html" class="game-button">
+                    PLAY →
+                </a>
+
+            </div>
+
         </div>
 
-    </section>
 
+        <!-- Coming Soon -->
 
-    <!-- RESULT PAGE -->
-    <section id="result" class="screen">
+        <div class="game-card coming-soon">
 
-        <div class="classified">● FILE COMPLETE</div>
+            <div class="game-icon">🚀</div>
 
-        <div class="result-icon">🕷️</div>
+            <div class="game-info">
 
-        <h1 id="resultTitle"></h1>
+                <h3>More Games</h3>
 
-        <p id="resultMessage"></p>
+                <p>
+                    More games are coming soon.
+                </p>
 
-        <div class="final-score">
-            <span id="finalScore">0</span>
-            <small>/ 70 XP</small>
+                <button class="game-button disabled">
+                    SOON
+                </button>
+
+            </div>
+
         </div>
 
-        <div id="reward"></div>
 
-        <button onclick="restartQuiz()" class="main-btn">
-            PLAY AGAIN ↻
-        </button>
+    </div>
 
-    </section>
+</section>
 
 
-    <script src="script.js"></script>
+<section class="about" id="about">
+
+    <h2>ABOUT THE ARCADE</h2>
+
+    <p>
+        A simple browser-based gaming hub built by Manish.
+        No installation. Just choose a game and play.
+    </p>
+
+</section>
+
+
+<footer>
+
+    <p>
+        🕷️ MANISH ARCADE © 2026
+    </p>
+
+</footer>
+
+
+<script src="script.js"></script>
+
 </body>
 </html>
