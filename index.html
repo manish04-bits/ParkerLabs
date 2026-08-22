@@ -4,25 +4,764 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
-    <title>GAMEVERSE</title>
+<title>GAMEVERSE</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #4b168c,
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            #006d82,
+            transparent 35%
+        ),
+        #050510;
+
+    overflow-x: hidden;
+}
+
+
+/* BACKGROUND */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background-image:
+        radial-gradient(
+            white 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+
+    opacity: .12;
+
+    animation:
+        stars 15s linear infinite;
+
+    z-index: -1;
+}
+
+@keyframes stars {
+
+    from {
+        transform:
+            translateY(0);
+    }
+
+    to {
+        transform:
+            translateY(50px);
+    }
+}
+
+
+/* HEADER */
+
+header {
+
+    text-align: center;
+
+    padding:
+        40px 15px 10px;
+}
+
+.logo {
+
+    font-size:
+        clamp(
+            40px,
+            9vw,
+            80px
+        );
+
+    font-weight:
+        1000;
+
+    letter-spacing:
+        8px;
+
+    text-shadow:
+        0 0 10px #8b5cff,
+        0 0 30px #8b5cff,
+        0 0 60px #00f7ff;
+
+    animation:
+        glow 2s infinite alternate;
+}
+
+.logo span {
+    color: #00f7ff;
+}
+
+@keyframes glow {
+
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.04);
+    }
+}
+
+.subtitle {
+
+    letter-spacing: 5px;
+
+    opacity: .6;
+}
+
+
+/* SCREEN */
+
+.screen {
+
+    width: 100%;
+
+    min-height: 65vh;
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    padding: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* CARD */
+
+.card {
+
+    width:
+        min(
+            900px,
+            95%
+        );
+
+    padding: 35px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(
+            10,
+            10,
+            30,
+            .78
+        );
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .15
+        );
+
+    backdrop-filter:
+        blur(20px);
+
+    box-shadow:
+        0 0 60px
+        rgba(
+            0,
+            247,
+            255,
+            .1
+        );
+
+    animation:
+        enter .5s ease;
+}
+
+@keyframes enter {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(25px)
+            scale(.95);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* INPUT */
+
+input {
+
+    width: 100%;
+
+    padding: 16px;
+
+    margin:
+        7px 0;
+
+    border:
+        1px solid
+        #34345a;
+
+    border-radius: 13px;
+
+    background:
+        #0c0c1b;
+
+    color: white;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+input:focus {
+
+    border-color:
+        #00f7ff;
+
+    box-shadow:
+        0 0 20px
+        rgba(
+            0,
+            247,
+            255,
+            .2
+        );
+}
+
+
+/* BUTTON */
+
+button {
+
+    border: none;
+
+    border-radius: 13px;
+
+    padding: 15px;
+
+    margin: 6px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            100deg,
+            #8b5cff,
+            #00a6c7
+        );
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        .2s;
+
+    box-shadow:
+        0 5px 20px
+        rgba(
+            0,
+            0,
+            0,
+            .3
+        );
+}
+
+button:hover {
+
+    transform:
+        translateY(-4px)
+        scale(1.02);
+
+    box-shadow:
+        0 10px 30px
+        rgba(
+            0,
+            247,
+            255,
+            .25
+        );
+}
+
+button:active {
+
+    transform:
+        scale(.95);
+}
+
+.full {
+    width: 100%;
+}
+
+.dark {
+
+    background:
+        #17172d;
+
+    border:
+        1px solid
+        #35355a;
+}
+
+.message {
+
+    text-align: center;
+
+    color:
+        #ff6b9d;
+}
+
+
+/* LOBBY */
+
+.room {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+}
+
+.room-code {
+
+    color:
+        #00f7ff;
+
+    letter-spacing:
+        5px;
+
+    font-size:
+        30px;
+}
+
+.players {
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    gap: 10px;
+
+    flex-wrap:
+        wrap;
+}
+
+.player {
+
+    padding:
+        12px 20px;
+
+    border:
+        1px solid
+        #36365c;
+
+    border-radius:
+        12px;
+
+    background:
+        #111125;
+}
+
+
+/* GAMES */
+
+.games {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            1fr
+        );
+
+    gap: 12px;
+}
+
+.game {
+
+    min-height:
+        110px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #15152e,
+            #24244a
+        );
+
+    border:
+        1px solid
+        #39395e;
+}
+
+.game-icon {
+    font-size: 35px;
+}
+
+.game-name {
+    font-size: 16px;
+}
+
+.game-small {
+    opacity: .5;
+}
+
+
+/* GAME */
+
+.game-header {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap: 15px;
+}
+
+#gameArea {
+
+    text-align:
+        center;
+}
+
+
+/* TIC TAC TOE */
+
+.ttt {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            100px
+        );
+
+    gap: 8px;
+
+    justify-content:
+        center;
+
+    margin:
+        25px auto;
+}
+
+.cell {
+
+    width: 100px;
+
+    height: 100px;
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    background:
+        #101022;
+
+    border:
+        1px solid
+        #33335a;
+
+    border-radius:
+        15px;
+
+    font-size: 45px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.cell:hover {
+
+    transform:
+        scale(1.05);
+
+    box-shadow:
+        0 0 25px
+        #00f7ff;
+}
+
+
+/* RPS */
+
+.rps {
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    gap: 15px;
+
+    margin:
+        30px 0;
+}
+
+.rps button {
+
+    font-size:
+        40px;
+
+    width:
+        100px;
+
+    height:
+        100px;
+}
+
+
+/* QUIZ */
+
+.question {
+
+    font-size:
+        24px;
+
+    margin:
+        30px 0;
+}
+
+.options {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            1fr
+        );
+
+    gap: 10px;
+}
+
+.options button {
+    min-height: 60px;
+}
+
+
+/* MEMORY */
+
+.memory {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            75px
+        );
+
+    gap: 10px;
+
+    justify-content:
+        center;
+
+    margin:
+        25px;
+}
+
+.memory-card {
+
+    width: 75px;
+
+    height: 90px;
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    font-size: 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #171735,
+            #2c2c53
+        );
+
+    border:
+        1px solid
+        #41416b;
+
+    border-radius:
+        12px;
+
+    cursor:
+        pointer;
+
+    transition:
+        .3s;
+}
+
+.memory-card:hover {
+    transform:
+        rotateY(15deg)
+        scale(1.05);
+}
+
+
+/* CANVAS */
+
+canvas {
+
+    display:
+        block;
+
+    max-width:
+        100%;
+
+    margin:
+        20px auto;
+
+    border-radius:
+        18px;
+
+    border:
+        1px solid
+        #34345c;
+
+    background:
+        #080812;
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px) {
+
+    .games {
+        grid-template-columns:
+            1fr;
+    }
+
+    .options {
+        grid-template-columns:
+            1fr;
+    }
+
+    .ttt {
+        grid-template-columns:
+            repeat(
+                3,
+                75px
+            );
+    }
+
+    .cell {
+        width: 75px;
+        height: 75px;
+        font-size: 35px;
+    }
+
+    .memory {
+        grid-template-columns:
+            repeat(
+                4,
+                60px
+            );
+    }
+
+    .memory-card {
+        width: 60px;
+        height: 75px;
+    }
+}
+
+</style>
 
 </head>
 
 <body>
 
-<div class="particles"></div>
 
 <header>
 
@@ -30,9 +769,9 @@
         GAME<span>VERSE</span>
     </div>
 
-    <p class="tagline">
+    <div class="subtitle">
         PLAY • COMPETE • DOMINATE
-    </p>
+    </div>
 
 </header>
 
@@ -40,60 +779,54 @@
 <!-- HOME -->
 
 <section
-    id="home"
-    class="screen"
+id="home"
+class="screen"
 >
 
-    <div class="glass">
+<div class="card">
 
-        <div class="hero-icon">
-            🎮
-        </div>
+    <h1>
+        🎮 Welcome to GameVerse
+    </h1>
 
-        <h1>
-            Welcome to GameVerse
-        </h1>
+    <p style="text-align:center;opacity:.6">
+        Play alone or battle your online friend.
+    </p>
 
-        <p>
-            Your online mini arcade.
-        </p>
+    <input
+        id="name"
+        placeholder="Enter your name"
+    >
 
-        <input
-            id="playerName"
-            placeholder="Enter your player name"
-            maxlength="18"
-        >
+    <button
+        class="full"
+        onclick="createRoom()"
+    >
+        🚀 CREATE ROOM
+    </button>
 
-        <button
-            class="main-button"
-            onclick="createRoom()"
-        >
-            CREATE ROOM
-        </button>
+    <p style="text-align:center">
+        OR
+    </p>
 
-        <div class="or">
-            OR
-        </div>
+    <input
+        id="code"
+        placeholder="ENTER ROOM CODE"
+    >
 
-        <input
-            id="roomCode"
-            placeholder="ENTER ROOM CODE"
-            maxlength="6"
-        >
+    <button
+        class="full dark"
+        onclick="joinRoom()"
+    >
+        👥 JOIN ROOM
+    </button>
 
-        <button
-            class="secondary-button"
-            onclick="joinRoom()"
-        >
-            JOIN ROOM
-        </button>
+    <p
+        id="error"
+        class="message"
+    ></p>
 
-        <p
-            id="message"
-            class="message"
-        ></p>
-
-    </div>
+</div>
 
 </section>
 
@@ -101,97 +834,216 @@
 <!-- LOBBY -->
 
 <section
-    id="lobby"
-    class="screen hidden"
+id="lobby"
+class="screen hidden"
 >
 
-    <div class="glass lobby">
+<div class="card">
 
-        <div class="room-header">
+    <div class="room">
 
-            <div>
-                <small>ROOM CODE</small>
+        <div>
 
-                <h1 id="roomDisplay">
-                    ------
-                </h1>
+            <small>
+                ROOM CODE
+            </small>
+
+            <div
+                id="roomCode"
+                class="room-code"
+            >
+                ------
             </div>
 
-            <button
-                class="copy-button"
-                onclick="copyRoom()"
-            >
-                📋 COPY
-            </button>
-
         </div>
 
-        <h2>
-            PLAYERS
-        </h2>
-
-        <div
-            id="players"
-            class="players"
-        ></div>
-
-        <h2>
-            CHOOSE A GAME
-        </h2>
-
-        <div class="games">
-
-            <button onclick="chooseGame('ttt')">
-                <span>❌⭕</span>
-                <b>Tic-Tac-Toe</b>
-                <small>Strategy</small>
-            </button>
-
-            <button onclick="chooseGame('rps')">
-                <span>✊</span>
-                <b>Rock Paper Scissors</b>
-                <small>Quick Battle</small>
-            </button>
-
-            <button onclick="chooseGame('pong')">
-                <span>🏓</span>
-                <b>Mini Pong</b>
-                <small>Arcade</small>
-            </button>
-
-            <button onclick="chooseGame('memory')">
-                <span>🃏</span>
-                <b>Memory Battle</b>
-                <small>Memory</small>
-            </button>
-
-            <button onclick="chooseGame('snake')">
-                <span>🐍</span>
-                <b>Snake Battle</b>
-                <small>Arcade</small>
-            </button>
-
-            <button onclick="chooseGame('racing')">
-                <span>🏎️</span>
-                <b>Mini Racing</b>
-                <small>Racing</small>
-            </button>
-
-            <button onclick="chooseGame('arena')">
-                <span>🏹</span>
-                <b>1v1 Arena</b>
-                <small>Battle</small>
-            </button>
-
-            <button onclick="chooseGame('quiz')">
-                <span>🧠</span>
-                <b>Quiz Battle</b>
-                <small>Knowledge</small>
-            </button>
-
-        </div>
+        <button
+            onclick="copyCode()"
+        >
+            📋 COPY
+        </button>
 
     </div>
+
+
+    <h2>
+        PLAYERS
+    </h2>
+
+    <div
+        id="players"
+        class="players"
+    ></div>
+
+
+    <h2>
+        🎮 CHOOSE GAME
+    </h2>
+
+    <div class="games">
+
+        <button
+            class="game"
+            onclick="selectGame('ttt')"
+        >
+
+            <span class="game-icon">
+                ❌⭕
+            </span>
+
+            <span class="game-name">
+                Tic-Tac-Toe
+            </span>
+
+            <span class="game-small">
+                Strategy
+            </span>
+
+        </button>
+
+
+        <button
+            class="game"
+            onclick="selectGame('rps')"
+        >
+
+            <span class="game-icon">
+                ✊
+            </span>
+
+            <span class="game-name">
+                Rock Paper Scissors
+            </span>
+
+            <span class="game-small">
+                Battle
+            </span>
+
+        </button>
+
+
+        <button
+            class="game"
+            onclick="selectGame('quiz')"
+        >
+
+            <span class="game-icon">
+                🧠
+            </span>
+
+            <span class="game-name">
+                Quiz Battle
+            </span>
+
+            <span class="game-small">
+                Random Questions
+            </span>
+
+        </button>
+
+
+        <button
+            class="game"
+            onclick="selectGame('memory')"
+        >
+
+            <span class="game-icon">
+                🃏
+            </span>
+
+            <span class="game-name">
+                Memory Battle
+            </span>
+
+            <span class="game-small">
+                Random Cards
+            </span>
+
+        </button>
+
+
+        <button
+            class="game"
+            onclick="selectGame('pong')"
+        >
+
+            <span class="game-icon">
+                🏓
+            </span>
+
+            <span class="game-name">
+                Mini Pong
+            </span>
+
+            <span class="game-small">
+                Arcade
+            </span>
+
+        </button>
+
+
+        <button
+            class="game"
+            onclick="selectGame('snake')"
+        >
+
+            <span class="game-icon">
+                🐍
+            </span>
+
+            <span class="game-name">
+                Snake
+            </span>
+
+            <span class="game-small">
+                Arcade
+            </span>
+
+        </button>
+
+
+        <button
+            class="game"
+            onclick="selectGame('racing')"
+        >
+
+            <span class="game-icon">
+                🏎️
+            </span>
+
+            <span class="game-name">
+                Racing
+            </span>
+
+            <span class="game-small">
+                Speed
+            </span>
+
+        </button>
+
+
+        <button
+            class="game"
+            onclick="selectGame('arena')"
+        >
+
+            <span class="game-icon">
+                ⚔️
+            </span>
+
+            <span class="game-name">
+                Arena
+            </span>
+
+            <span class="game-small">
+                Battle
+            </span>
+
+        </button>
+
+    </div>
+
+</div>
 
 </section>
 
@@ -199,49 +1051,52 @@
 <!-- MODE -->
 
 <section
-    id="mode"
-    class="screen hidden"
+id="mode"
+class="screen hidden"
 >
 
-    <div class="glass mode-card">
+<div
+class="card"
+style="max-width:500px;text-align:center"
+>
 
-        <div
-            id="selectedGameIcon"
-            class="big-icon"
-        >
-            🎮
-        </div>
-
-        <h1 id="selectedGameName">
-            Game
-        </h1>
-
-        <p>
-            Choose how you want to play.
-        </p>
-
-        <button
-            class="main-button"
-            onclick="startSinglePlayer()"
-        >
-            👤 SINGLE PLAYER
-        </button>
-
-        <button
-            class="secondary-button"
-            onclick="startMultiplayer()"
-        >
-            👥 MULTIPLAYER
-        </button>
-
-        <button
-            class="back-button"
-            onclick="show('lobby')"
-        >
-            ← BACK
-        </button>
-
+    <div
+        id="modeIcon"
+        style="font-size:70px"
+    >
+        🎮
     </div>
+
+    <h1 id="modeTitle">
+        GAME
+    </h1>
+
+    <p>
+        How do you want to play?
+    </p>
+
+    <button
+        class="full"
+        onclick="singlePlayer()"
+    >
+        👤 SINGLE PLAYER
+    </button>
+
+    <button
+        class="full"
+        onclick="multiPlayer()"
+    >
+        👥 MULTIPLAYER
+    </button>
+
+    <button
+        class="full dark"
+        onclick="show('lobby')"
+    >
+        ← BACK
+    </button>
+
+</div>
 
 </section>
 
@@ -249,45 +1104,1615 @@
 <!-- GAME -->
 
 <section
-    id="game"
-    class="screen hidden"
+id="game"
+class="screen hidden"
 >
 
-    <div class="glass game-container">
+<div class="card">
 
-        <div class="game-top">
+    <div class="game-header">
 
-            <button
-                class="back-button"
-                onclick="backLobby()"
-            >
-                ← LOBBY
-            </button>
+        <button
+            onclick="show('lobby')"
+        >
+            ← LOBBY
+        </button>
 
-            <div>
-
-                <h1 id="gameTitle">
-                    GAME
-                </h1>
-
-                <small id="modeLabel">
-                    MODE
-                </small>
-
-            </div>
-
-        </div>
-
-        <div id="gameArea"></div>
+        <h2 id="gameTitle">
+            GAME
+        </h2>
 
     </div>
+
+    <div id="gameArea"></div>
+
+</div>
 
 </section>
 
 
 <script src="/socket.io/socket.io.js"></script>
 
-<script src="app.js"></script>
+
+<script>
+
+const socket = io();
+
+let roomCode = "";
+let selected = "";
+let mode = "";
+
+const games = {
+
+    ttt: {
+        name: "TIC-TAC-TOE",
+        icon: "❌⭕"
+    },
+
+    rps: {
+        name: "ROCK PAPER SCISSORS",
+        icon: "✊"
+    },
+
+    quiz: {
+        name: "QUIZ BATTLE",
+        icon: "🧠"
+    },
+
+    memory: {
+        name: "MEMORY BATTLE",
+        icon: "🃏"
+    },
+
+    pong: {
+        name: "MINI PONG",
+        icon: "🏓"
+    },
+
+    snake: {
+        name: "SNAKE",
+        icon: "🐍"
+    },
+
+    racing: {
+        name: "RACING",
+        icon: "🏎️"
+    },
+
+    arena: {
+        name: "ARENA",
+        icon: "⚔️"
+    }
+
+};
+
+
+/* NAVIGATION */
+
+function show(id) {
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(
+            x =>
+                x.classList.add("hidden")
+        );
+
+    document
+        .getElementById(id)
+        .classList.remove("hidden");
+}
+
+
+/* ROOM */
+
+function playerName() {
+
+    return (
+        document
+            .getElementById("name")
+            .value
+            .trim()
+        || "Player"
+    );
+}
+
+
+function createRoom() {
+
+    socket.emit(
+        "createRoom",
+        playerName()
+    );
+}
+
+
+function joinRoom() {
+
+    const code =
+        document
+            .getElementById("code")
+            .value
+            .trim()
+            .toUpperCase();
+
+    if (!code) {
+
+        document
+            .getElementById("error")
+            .textContent =
+            "Enter a room code.";
+
+        return;
+    }
+
+    socket.emit(
+        "joinRoom",
+        {
+            code,
+            name: playerName()
+        }
+    );
+}
+
+
+socket.on(
+    "roomCreated",
+    code => {
+
+        roomCode = code;
+
+        document
+            .getElementById("roomCode")
+            .textContent =
+            code;
+
+        show("lobby");
+    }
+);
+
+
+socket.on(
+    "players",
+    players => {
+
+        const box =
+            document
+                .getElementById("players");
+
+        box.innerHTML = "";
+
+        players.forEach(
+            player => {
+
+                const div =
+                    document.createElement(
+                        "div"
+                    );
+
+                div.className =
+                    "player";
+
+                div.textContent =
+                    "🟢 "
+                    + player.name;
+
+                box.appendChild(div);
+            }
+        );
+    }
+);
+
+
+socket.on(
+    "errorMessage",
+    message => {
+
+        document
+            .getElementById("error")
+            .textContent =
+            message;
+    }
+);
+
+
+function copyCode() {
+
+    navigator.clipboard.writeText(
+        roomCode
+    );
+}
+
+
+/* GAME SELECT */
+
+function selectGame(game) {
+
+    selected = game;
+
+    document
+        .getElementById("modeIcon")
+        .textContent =
+        games[game].icon;
+
+    document
+        .getElementById("modeTitle")
+        .textContent =
+        games[game].name;
+
+    show("mode");
+}
+
+
+function singlePlayer() {
+
+    mode = "single";
+
+    openGame();
+}
+
+
+function multiPlayer() {
+
+    mode = "multi";
+
+    socket.emit(
+        "selectGame",
+        selected
+    );
+}
+
+
+socket.on(
+    "gameSelected",
+    game => {
+
+        selected = game;
+
+        mode = "multi";
+
+        openGame();
+    }
+);
+
+
+function openGame() {
+
+    document
+        .getElementById("gameTitle")
+        .textContent =
+        games[selected].icon
+        + " "
+        + games[selected].name;
+
+    show("game");
+
+    const area =
+        document
+            .getElementById("gameArea");
+
+    area.innerHTML = "";
+
+    if (selected === "ttt")
+        ttt();
+
+    if (selected === "rps")
+        rps();
+
+    if (selected === "quiz")
+        quiz();
+
+    if (selected === "memory")
+        memory();
+
+    if (selected === "pong")
+        pong();
+
+    if (selected === "snake")
+        snake();
+
+    if (selected === "racing")
+        racing();
+
+    if (selected === "arena")
+        arena();
+}
+
+
+/* =========================
+   TIC TAC TOE
+========================= */
+
+let board = Array(9).fill("");
+let mySymbol = "X";
+
+function ttt() {
+
+    board =
+        Array(9).fill("");
+
+    document
+        .getElementById("gameArea")
+        .innerHTML = `
+
+        <h3 id="status">
+            ${
+                mode === "single"
+                ? "Your turn — X"
+                : "Waiting..."
+            }
+        </h3>
+
+        <div class="ttt">
+
+            ${Array.from(
+                {length:9},
+                (_,i)=>`
+
+                <div
+                    class="cell"
+                    id="cell${i}"
+                    onclick="tttClick(${i})"
+                ></div>
+
+                `
+            ).join("")}
+
+        </div>
+
+        <button
+            onclick="rematch()"
+        >
+            🔄 REMATCH
+        </button>
+    `;
+
+    if (mode === "single")
+        mySymbol = "X";
+}
+
+
+function tttClick(i) {
+
+    if (mode === "multi") {
+
+        socket.emit(
+            "tttMove",
+            i
+        );
+
+        return;
+    }
+
+    if (board[i])
+        return;
+
+    board[i] = "X";
+
+    drawTTT();
+
+    if (checkLocalWinner())
+        return;
+
+    setTimeout(
+        aiMove,
+        350
+    );
+}
+
+
+function aiMove() {
+
+    const empty =
+        board
+            .map(
+                (x,i) =>
+                    x === ""
+                    ? i
+                    : null
+            )
+            .filter(
+                x => x !== null
+            );
+
+    if (!empty.length)
+        return;
+
+    const move =
+        empty[
+            Math.floor(
+                Math.random()
+                * empty.length
+            )
+        ];
+
+    board[move] = "O";
+
+    drawTTT();
+
+    checkLocalWinner();
+}
+
+
+function drawTTT() {
+
+    board.forEach(
+        (value,i) => {
+
+            const cell =
+                document
+                    .getElementById(
+                        "cell" + i
+                    );
+
+            if (cell)
+                cell.textContent =
+                    value;
+        }
+    );
+}
+
+
+function checkLocalWinner() {
+
+    const lines = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ];
+
+    for (
+        const [a,b,c]
+        of lines
+    ) {
+
+        if (
+            board[a] &&
+            board[a] === board[b] &&
+            board[a] === board[c]
+        ) {
+
+            document
+                .getElementById("status")
+                .textContent =
+                board[a] === "X"
+                ? "🔥 YOU WIN!"
+                : "🤖 AI WINS!";
+
+            confetti();
+
+            return true;
+        }
+    }
+
+    if (
+        board.every(Boolean)
+    ) {
+
+        document
+            .getElementById("status")
+            .textContent =
+            "🤝 DRAW!";
+
+        return true;
+    }
+
+    return false;
+}
+
+
+socket.on(
+    "tttUpdate",
+    data => {
+
+        if (
+            selected !== "ttt"
+            ||
+            mode !== "multi"
+        )
+            return;
+
+        board =
+            data.board;
+
+        drawTTT();
+
+        const status =
+            document
+                .getElementById(
+                    "status"
+                );
+
+        if (data.result) {
+
+            status.textContent =
+                data.result === "DRAW"
+                ? "🤝 DRAW!"
+                : `🔥 ${data.result} WINS!`;
+
+            confetti();
+
+        } else {
+
+            status.textContent =
+                "⚡ Turn changed!";
+        }
+    }
+);
+
+
+/* =========================
+   ROCK PAPER SCISSORS
+========================= */
+
+function rps() {
+
+    document
+        .getElementById("gameArea")
+        .innerHTML = `
+
+        <h2>
+            Choose your weapon
+        </h2>
+
+        <div class="rps">
+
+            <button
+                onclick="rpsPlay('rock')"
+            >
+                🪨
+            </button>
+
+            <button
+                onclick="rpsPlay('paper')"
+            >
+                📄
+            </button>
+
+            <button
+                onclick="rpsPlay('scissors')"
+            >
+                ✂️
+            </button>
+
+        </div>
+
+        <h2 id="rpsResult">
+            ${
+                mode === "single"
+                ? "Battle the AI 🤖"
+                : "Waiting for opponent..."
+            }
+        </h2>
+    `;
+}
+
+
+function rpsPlay(choice) {
+
+    if (mode === "multi") {
+
+        socket.emit(
+            "rpsChoice",
+            choice
+        );
+
+        document
+            .getElementById(
+                "rpsResult"
+            )
+            .textContent =
+            "⏳ Waiting...";
+
+        return;
+    }
+
+    const options =
+        [
+            "rock",
+            "paper",
+            "scissors"
+        ];
+
+    const ai =
+        options[
+            Math.floor(
+                Math.random()
+                * 3
+            )
+        ];
+
+    let result;
+
+    if (choice === ai) {
+
+        result =
+            "🤝 DRAW!";
+
+    } else if (
+
+        (
+            choice === "rock"
+            &&
+            ai === "scissors"
+        ) ||
+
+        (
+            choice === "paper"
+            &&
+            ai === "rock"
+        ) ||
+
+        (
+            choice === "scissors"
+            &&
+            ai === "paper"
+        )
+
+    ) {
+
+        result =
+            "🔥 YOU WIN!";
+
+        confetti();
+
+    } else {
+
+        result =
+            "🤖 AI WINS!";
+    }
+
+    document
+        .getElementById(
+            "rpsResult"
+        )
+        .textContent =
+        `You: ${choice} | AI: ${ai} | ${result}`;
+}
+
+
+socket.on(
+    "rpsResult",
+    data => {
+
+        if (
+            selected !== "rps"
+            ||
+            mode !== "multi"
+        )
+            return;
+
+        let text;
+
+        if (
+            data.result ===
+            "DRAW"
+        ) {
+
+            text =
+                "🤝 DRAW!";
+
+        } else {
+
+            text =
+                "🔥 WINNER!";
+
+            confetti();
+        }
+
+        document
+            .getElementById(
+                "rpsResult"
+            )
+            .textContent =
+            text;
+    }
+);
+
+
+/* =========================
+   QUIZ
+========================= */
+
+const localQuestions = [
+    {
+        q:"What is 2 + 2?",
+        options:["3","4","5","6"],
+        answer:1
+    },
+    {
+        q:"Which planet is the Red Planet?",
+        options:["Mars","Earth","Venus","Jupiter"],
+        answer:0
+    },
+    {
+        q:"What does HTML stand for?",
+        options:[
+            "Hyper Text Markup Language",
+            "High Text Machine Language",
+            "Hyper Tool Multi Language",
+            "Home Tool Markup Language"
+        ],
+        answer:0
+    },
+    {
+        q:"How many days are in a week?",
+        options:["5","6","7","8"],
+        answer:2
+    },
+    {
+        q:"Which is a programming language?",
+        options:["Python","Chrome","Windows","Google"],
+        answer:0
+    }
+];
+
+
+function quiz() {
+
+    document
+        .getElementById("gameArea")
+        .innerHTML = `
+
+        <div
+            id="question"
+            class="question"
+        ></div>
+
+        <div
+            id="options"
+            class="options"
+        ></div>
+
+        <h3 id="quizScore">
+            Score: 0
+        </h3>
+    `;
+
+    if (mode === "single")
+        nextLocalQuestion();
+    else
+        startQuiz();
+}
+
+
+function nextLocalQuestion() {
+
+    const q =
+        localQuestions[
+            Math.floor(
+                Math.random()
+                * localQuestions.length
+            )
+        ];
+
+    document
+        .getElementById(
+            "question"
+        )
+        .textContent =
+        q.q;
+
+    const options =
+        document
+            .getElementById(
+                "options"
+            );
+
+    options.innerHTML = "";
+
+    q.options.forEach(
+        (answer,index) => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.textContent =
+                answer;
+
+            button.onclick =
+                () => {
+
+                    if (
+                        index ===
+                        q.answer
+                    ) {
+
+                        button.textContent =
+                            "🔥 CORRECT!";
+
+                        document
+                            .getElementById(
+                                "quizScore"
+                            )
+                            .textContent =
+                            "🔥 CORRECT!";
+
+                        confetti();
+
+                    } else {
+
+                        button.textContent =
+                            "❌ WRONG!";
+                    }
+
+                    setTimeout(
+                        nextLocalQuestion,
+                        700
+                    );
+                };
+
+            options.appendChild(
+                button
+            );
+        }
+    );
+}
+
+
+function startQuiz() {
+
+    socket.emit(
+        "startQuiz"
+    );
+}
+
+
+socket.on(
+    "quizQuestion",
+    q => {
+
+        if (
+            selected !== "quiz"
+            ||
+            mode !== "multi"
+        )
+            return;
+
+        document
+            .getElementById(
+                "question"
+            )
+            .textContent =
+            q.question;
+
+        const options =
+            document
+                .getElementById(
+                    "options"
+                );
+
+        options.innerHTML = "";
+
+        q.options.forEach(
+            (answer,index) => {
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+                button.textContent =
+                    answer;
+
+                button.onclick =
+                    () => {
+
+                        socket.emit(
+                            "quizAnswer",
+                            index
+                        );
+
+                        button.disabled =
+                            true;
+
+                        button.textContent =
+                            "✓ ANSWERED";
+                    };
+
+                options.appendChild(
+                    button
+                );
+            }
+        );
+    }
+);
+
+
+socket.on(
+    "quizResult",
+    data => {
+
+        if (
+            selected !== "quiz"
+        )
+            return;
+
+        document
+            .getElementById(
+                "quizScore"
+            )
+            .textContent =
+            "🎯 Correct answer: "
+            +
+            (
+                data.correct + 1
+            );
+
+        confetti();
+    }
+);
+
+
+/* =========================
+   MEMORY
+========================= */
+
+function memory() {
+
+    const symbols = [
+        "🍎","🍎",
+        "🚀","🚀",
+        "🎮","🎮",
+        "🐍","🐍",
+        "⚡","⚡",
+        "🔥","🔥",
+        "👾","👾",
+        "🎯","🎯"
+    ];
+
+    symbols.sort(
+        () =>
+            Math.random() - .5
+    );
+
+    document
+        .getElementById(
+            "gameArea"
+        )
+        .innerHTML = `
+
+        <div
+            class="memory"
+            id="memory"
+        ></div>
+
+        <h3 id="memoryScore">
+            Matches: 0
+        </h3>
+    `;
+
+    let first = null;
+    let locked = false;
+    let matches = 0;
+
+    symbols.forEach(
+        symbol => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "memory-card";
+
+            card.textContent =
+                "?";
+
+            card.onclick =
+                () => {
+
+                    if (
+                        locked ||
+                        card.textContent !== "?"
+                    )
+                        return;
+
+                    card.textContent =
+                        symbol;
+
+                    if (!first) {
+
+                        first = {
+                            card,
+                            symbol
+                        };
+
+                        return;
+                    }
+
+                    locked = true;
+
+                    if (
+                        first.symbol ===
+                        symbol
+                    ) {
+
+                        matches++;
+
+                        document
+                            .getElementById(
+                                "memoryScore"
+                            )
+                            .textContent =
+                            `Matches: ${matches}`;
+
+                        first = null;
+
+                        locked = false;
+
+                        if (
+                            matches === 8
+                        )
+                            confetti();
+
+                    } else {
+
+                        setTimeout(
+                            () => {
+
+                                card.textContent =
+                                    "?";
+
+                                first.card
+                                    .textContent =
+                                    "?";
+
+                                first = null;
+
+                                locked = false;
+
+                            },
+                            700
+                        );
+                    }
+                };
+
+            document
+                .getElementById(
+                    "memory"
+                )
+                .appendChild(card);
+        }
+    );
+}
+
+
+/* =========================
+   CANVAS GAMES
+========================= */
+
+function canvasGame(title) {
+
+    document
+        .getElementById(
+            "gameArea"
+        )
+        .innerHTML = `
+
+        <canvas
+            id="canvas"
+            width="700"
+            height="400"
+        ></canvas>
+
+        <h3>
+            ${title}
+        </h3>
+    `;
+
+    return document
+        .getElementById(
+            "canvas"
+        );
+}
+
+
+/* PONG */
+
+function pong() {
+
+    const canvas =
+        canvasGame(
+            "🏓 Move mouse to control your paddle"
+        );
+
+    const ctx =
+        canvas.getContext("2d");
+
+    let y = 150;
+
+    let ball = {
+        x:350,
+        y:200,
+        dx:4,
+        dy:3
+    };
+
+    canvas.onmousemove =
+        e => {
+
+            const rect =
+                canvas.getBoundingClientRect();
+
+            y =
+                e.clientY
+                - rect.top
+                - 50;
+        };
+
+    function draw() {
+
+        ctx.clearRect(
+            0,
+            0,
+            700,
+            400
+        );
+
+        ctx.fillStyle =
+            "#00f7ff";
+
+        ctx.fillRect(
+            20,
+            y,
+            10,
+            100
+        );
+
+        ctx.fillStyle =
+            "#ff3cac";
+
+        ctx.fillRect(
+            670,
+            ball.y - 50,
+            10,
+            100
+        );
+
+        ctx.fillStyle =
+            "white";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            ball.x,
+            ball.y,
+            8,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+        ball.x +=
+            ball.dx;
+
+        ball.y +=
+            ball.dy;
+
+        if (
+            ball.y < 0 ||
+            ball.y > 400
+        )
+            ball.dy *= -1;
+
+        if (
+            ball.x < 40 &&
+            ball.y > y &&
+            ball.y < y + 100
+        )
+            ball.dx =
+                Math.abs(ball.dx);
+
+        if (
+            ball.x > 650
+        )
+            ball.dx =
+                -Math.abs(ball.dx);
+
+        if (
+            ball.x < 0
+        ) {
+
+            ball.x = 350;
+            ball.y = 200;
+        }
+
+        requestAnimationFrame(
+            draw
+        );
+    }
+
+    draw();
+}
+
+
+/* SNAKE */
+
+function snake() {
+
+    const canvas =
+        canvasGame(
+            "🐍 Use arrow keys"
+        );
+
+    const ctx =
+        canvas.getContext("2d");
+
+    let x = 200;
+    let y = 200;
+
+    let dx = 20;
+    let dy = 0;
+
+    let food = {
+        x:300,
+        y:200
+    };
+
+    document.onkeydown =
+        e => {
+
+            if (
+                e.key ===
+                "ArrowUp"
+            ) {
+                dx=0;
+                dy=-20;
+            }
+
+            if (
+                e.key ===
+                "ArrowDown"
+            ) {
+                dx=0;
+                dy=20;
+            }
+
+            if (
+                e.key ===
+                "ArrowLeft"
+            ) {
+                dx=-20;
+                dy=0;
+            }
+
+            if (
+                e.key ===
+                "ArrowRight"
+            ) {
+                dx=20;
+                dy=0;
+            }
+        };
+
+    setInterval(
+        () => {
+
+            x += dx;
+            y += dy;
+
+            if (
+                x < 0 ||
+                x > 680 ||
+                y < 0 ||
+                y > 380
+            ) {
+
+                x = 200;
+                y = 200;
+            }
+
+            if (
+                Math.abs(x-food.x)<20 &&
+                Math.abs(y-food.y)<20
+            ) {
+
+                food = {
+
+                    x:
+                        Math.floor(
+                            Math.random()*34
+                        )*20,
+
+                    y:
+                        Math.floor(
+                            Math.random()*19
+                        )*20
+                };
+            }
+
+            ctx.clearRect(
+                0,0,700,400
+            );
+
+            ctx.fillStyle =
+                "#00f7ff";
+
+            ctx.fillRect(
+                x,y,18,18
+            );
+
+            ctx.fillStyle =
+                "#ff3cac";
+
+            ctx.fillRect(
+                food.x,
+                food.y,
+                18,
+                18
+            );
+
+        },
+        100
+    );
+}
+
+
+/* RACING */
+
+function racing() {
+
+    const canvas =
+        canvasGame(
+            "🏎️ Hold SPACE to accelerate"
+        );
+
+    const ctx =
+        canvas.getContext("2d");
+
+    let player = 0;
+
+    document.onkeydown =
+        e => {
+
+            if (
+                e.code ===
+                "Space"
+            )
+                player += 10;
+        };
+
+    function draw() {
+
+        ctx.clearRect(
+            0,0,700,400
+        );
+
+        ctx.fillStyle =
+            "#111";
+
+        ctx.fillRect(
+            100,
+            0,
+            500,
+            400
+        );
+
+        ctx.fillStyle =
+            "#00f7ff";
+
+        ctx.fillRect(
+            250,
+            350 -
+                (player % 300),
+            50,
+            30
+        );
+
+        requestAnimationFrame(
+            draw
+        );
+    }
+
+    draw();
+}
+
+
+/* ARENA */
+
+function arena() {
+
+    const canvas =
+        canvasGame(
+            "⚔️ Arrow keys to move • SPACE to attack"
+        );
+
+    const ctx =
+        canvas.getContext("2d");
+
+    let x = 150;
+    let y = 200;
+
+    let enemyX = 500;
+    let enemyY = 200;
+
+    document.onkeydown =
+        e => {
+
+            if (
+                e.key ===
+                "ArrowUp"
+            )
+                y -= 10;
+
+            if (
+                e.key ===
+                "ArrowDown"
+            )
+                y += 10;
+
+            if (
+                e.key ===
+                "ArrowLeft"
+            )
+                x -= 10;
+
+            if (
+                e.key ===
+                "ArrowRight"
+            )
+                x += 10;
+
+            if (
+                e.code ===
+                "Space"
+            ) {
+
+                const distance =
+                    Math.hypot(
+                        x-enemyX,
+                        y-enemyY
+                    );
+
+                if (
+                    distance < 100
+                ) {
+
+                    enemyX += 20;
+                }
+            }
+        };
+
+    function draw() {
+
+        ctx.clearRect(
+            0,0,700,400
+        );
+
+        ctx.fillStyle =
+            "#00f7ff";
+
+        ctx.fillRect(
+            x,y,40,40
+        );
+
+        ctx.fillStyle =
+            "#ff3cac";
+
+        ctx.fillRect(
+            enemyX,
+            enemyY,
+            40,
+            40
+        );
+
+        requestAnimationFrame(
+            draw
+        );
+    }
+
+    draw();
+}
+
+
+/* REMATCH */
+
+function rematch() {
+
+    if (
+        mode === "multi"
+    ) {
+
+        socket.emit(
+            "rematch"
+        );
+
+    } else {
+
+        openGame();
+    }
+}
+
+
+socket.on(
+    "rematch",
+    () => {
+
+        if (
+            mode === "multi"
+        )
+            openGame();
+    }
+);
+
+
+/* CONFETTI */
+
+function confetti() {
+
+    for (
+        let i=0;
+        i<30;
+        i++
+    ) {
+
+        const item =
+            document.createElement(
+                "div"
+            );
+
+        item.textContent =
+            [
+                "🔥",
+                "✨",
+                "🎉",
+                "⭐"
+            ][
+                Math.floor(
+                    Math.random()*4
+                )
+            ];
+
+        item.style.position =
+            "fixed";
+
+        item.style.left =
+            Math.random()*100
+            + "%";
+
+        item.style.top =
+            "-30px";
+
+        item.style.fontSize =
+            "25px";
+
+        item.style.zIndex =
+            "9999";
+
+        item.style.transition =
+            "top 1.5s linear";
+
+        document.body
+            .appendChild(item);
+
+        setTimeout(
+            () => {
+                item.style.top =
+                    "110%";
+            },
+            20
+        );
+
+        setTimeout(
+            () => {
+                item.remove();
+            },
+            1600
+        );
+    }
+}
+
+</script>
 
 </body>
 
