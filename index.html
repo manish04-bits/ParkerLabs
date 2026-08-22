@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -12,98 +13,180 @@
 
     <title>GAMEVERSE</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
 </head>
 
 <body>
 
-<div class="background"></div>
+<div class="particles"></div>
 
 <header>
 
-    <h1>GAME<span>VERSE</span></h1>
+    <div class="logo">
+        GAME<span>VERSE</span>
+    </div>
 
-    <p>PLAY • COMPETE • DOMINATE</p>
+    <p class="tagline">
+        PLAY • COMPETE • DOMINATE
+    </p>
 
 </header>
 
 
-<section id="home" class="screen">
+<!-- HOME -->
 
-    <div class="card">
+<section
+    id="home"
+    class="screen"
+>
 
-        <h2>🎮 Multiplayer Arcade</h2>
+    <div class="glass">
+
+        <div class="hero-icon">
+            🎮
+        </div>
+
+        <h1>
+            Welcome to GameVerse
+        </h1>
+
+        <p>
+            Your online mini arcade.
+        </p>
 
         <input
             id="playerName"
-            placeholder="Enter your name"
+            placeholder="Enter your player name"
+            maxlength="18"
         >
 
-        <button onclick="createRoom()">
+        <button
+            class="main-button"
+            onclick="createRoom()"
+        >
             CREATE ROOM
         </button>
 
-        <div class="divider">OR</div>
+        <div class="or">
+            OR
+        </div>
 
         <input
             id="roomCode"
-            placeholder="ROOM CODE"
+            placeholder="ENTER ROOM CODE"
+            maxlength="6"
         >
 
-        <button onclick="joinRoom()">
+        <button
+            class="secondary-button"
+            onclick="joinRoom()"
+        >
             JOIN ROOM
         </button>
 
-        <p id="message"></p>
+        <p
+            id="message"
+            class="message"
+        ></p>
 
     </div>
 
 </section>
 
 
-<section id="lobby" class="screen hidden">
+<!-- LOBBY -->
 
-    <div class="card">
+<section
+    id="lobby"
+    class="screen hidden"
+>
 
-        <h2>ROOM <span id="roomDisplay"></span></h2>
+    <div class="glass lobby">
 
-        <div id="players"></div>
+        <div class="room-header">
 
-        <h3>SELECT YOUR GAME</h3>
+            <div>
+                <small>ROOM CODE</small>
+
+                <h1 id="roomDisplay">
+                    ------
+                </h1>
+            </div>
+
+            <button
+                class="copy-button"
+                onclick="copyRoom()"
+            >
+                📋 COPY
+            </button>
+
+        </div>
+
+        <h2>
+            PLAYERS
+        </h2>
+
+        <div
+            id="players"
+            class="players"
+        ></div>
+
+        <h2>
+            CHOOSE A GAME
+        </h2>
 
         <div class="games">
 
-            <button onclick="selectGame('ttt')">
-                ❌⭕ Tic-Tac-Toe
+            <button onclick="chooseGame('ttt')">
+                <span>❌⭕</span>
+                <b>Tic-Tac-Toe</b>
+                <small>Strategy</small>
             </button>
 
-            <button onclick="selectGame('rps')">
-                ✊ RPS
+            <button onclick="chooseGame('rps')">
+                <span>✊</span>
+                <b>Rock Paper Scissors</b>
+                <small>Quick Battle</small>
             </button>
 
-            <button onclick="selectGame('pong')">
-                🏓 Pong
+            <button onclick="chooseGame('pong')">
+                <span>🏓</span>
+                <b>Mini Pong</b>
+                <small>Arcade</small>
             </button>
 
-            <button onclick="selectGame('memory')">
-                🃏 Memory Battle
+            <button onclick="chooseGame('memory')">
+                <span>🃏</span>
+                <b>Memory Battle</b>
+                <small>Memory</small>
             </button>
 
-            <button onclick="selectGame('snake')">
-                🐍 Snake
+            <button onclick="chooseGame('snake')">
+                <span>🐍</span>
+                <b>Snake Battle</b>
+                <small>Arcade</small>
             </button>
 
-            <button onclick="selectGame('racing')">
-                🏎️ Racing
+            <button onclick="chooseGame('racing')">
+                <span>🏎️</span>
+                <b>Mini Racing</b>
+                <small>Racing</small>
             </button>
 
-            <button onclick="selectGame('arena')">
-                🏹 1v1 Arena
+            <button onclick="chooseGame('arena')">
+                <span>🏹</span>
+                <b>1v1 Arena</b>
+                <small>Battle</small>
             </button>
 
-            <button onclick="selectGame('quiz')">
-                🧠 Quiz Battle
+            <button onclick="chooseGame('quiz')">
+                <span>🧠</span>
+                <b>Quiz Battle</b>
+                <small>Knowledge</small>
             </button>
 
         </div>
@@ -113,18 +196,87 @@
 </section>
 
 
-<section id="game" class="screen hidden">
+<!-- MODE -->
 
-    <div class="card">
+<section
+    id="mode"
+    class="screen hidden"
+>
+
+    <div class="glass mode-card">
+
+        <div
+            id="selectedGameIcon"
+            class="big-icon"
+        >
+            🎮
+        </div>
+
+        <h1 id="selectedGameName">
+            Game
+        </h1>
+
+        <p>
+            Choose how you want to play.
+        </p>
 
         <button
-            class="back"
-            onclick="backLobby()"
+            class="main-button"
+            onclick="startSinglePlayer()"
         >
-            ← LOBBY
+            👤 SINGLE PLAYER
         </button>
 
-        <h2 id="gameTitle"></h2>
+        <button
+            class="secondary-button"
+            onclick="startMultiplayer()"
+        >
+            👥 MULTIPLAYER
+        </button>
+
+        <button
+            class="back-button"
+            onclick="show('lobby')"
+        >
+            ← BACK
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- GAME -->
+
+<section
+    id="game"
+    class="screen hidden"
+>
+
+    <div class="glass game-container">
+
+        <div class="game-top">
+
+            <button
+                class="back-button"
+                onclick="backLobby()"
+            >
+                ← LOBBY
+            </button>
+
+            <div>
+
+                <h1 id="gameTitle">
+                    GAME
+                </h1>
+
+                <small id="modeLabel">
+                    MODE
+                </small>
+
+            </div>
+
+        </div>
 
         <div id="gameArea"></div>
 
@@ -134,6 +286,7 @@
 
 
 <script src="/socket.io/socket.io.js"></script>
+
 <script src="app.js"></script>
 
 </body>
