@@ -1,7 +1,6 @@
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
-const crypto = require("crypto");
 
 const app = express();
 const server = http.createServer(app);
@@ -9,16 +8,16 @@ const io = new Server(server);
 
 app.use(express.static("public"));
 
-const rooms = new Map();
+const rooms = {};
 
-const quizQuestions = [
+const questions = [
     {
-        q: "Which planet is known as the Red Planet?",
+        question: "Which planet is known as the Red Planet?",
         options: ["Mars", "Venus", "Jupiter", "Mercury"],
         answer: 0
     },
     {
-        q: "What does CPU stand for?",
+        question: "What does CPU stand for?",
         options: [
             "Central Processing Unit",
             "Computer Personal Unit",
@@ -28,12 +27,17 @@ const quizQuestions = [
         answer: 0
     },
     {
-        q: "How many sides does a hexagon have?",
+        question: "How many sides does a hexagon have?",
         options: ["5", "6", "7", "8"],
         answer: 1
     },
     {
-        q: "Which ocean is the largest?",
+        question: "What is 12 × 8?",
+        options: ["86", "96", "108", "88"],
+        answer: 1
+    },
+    {
+        question: "Which ocean is the largest?",
         options: [
             "Atlantic",
             "Indian",
@@ -43,7 +47,7 @@ const quizQuestions = [
         answer: 2
     },
     {
-        q: "Which language is mainly used to style webpages?",
+        question: "Which language is used to style webpages?",
         options: [
             "HTML",
             "CSS",
@@ -53,70 +57,55 @@ const quizQuestions = [
         answer: 1
     },
     {
-        q: "Which device is used to connect networks?",
+        question: "Which animal is known as the King of the Jungle?",
         options: [
-            "Router",
-            "Keyboard",
-            "Monitor",
-            "Printer"
+            "Tiger",
+            "Lion",
+            "Elephant",
+            "Wolf"
         ],
-        answer: 0
-    },
-    {
-        q: "What is 12 × 8?",
-        options: ["86", "96", "108", "88"],
         answer: 1
     },
     {
-        q: "Which animal is known as the King of the Jungle?",
-        options: [
-            "Tiger",
-            "Elephant",
-            "Lion",
-            "Wolf"
-        ],
+        question: "How many continents are there?",
+        options: ["5", "6", "7", "8"],
         answer: 2
     }
 ];
 
 function randomQuestion() {
-    return quizQuestions[
-        Math.floor(Math.random() * quizQuestions.length)
+    return questions[
+        Math.floor(Math.random() * questions.length)
     ];
 }
 
 function createRoomCode() {
-    return crypto.randomBytes(3).toString("hex").toUpperCase();
+    return Math.random()
+        .toString(36)
+        .substring(2, 8)
+        .toUpperCase();
 }
 
-function findRoom(socket) {
-    for (const [code, room] of rooms) {
-        if (room.players.some(p => p.id === socket.id)) {
-            return { code, room };
-        }
-    }
-
-    return null;
+function getRoom(socket) {
+    return Object.values(rooms).find(room =>
+        room.players.some(player => player.id === socket.id)
+    );
 }
 
-function shuffle(array) {
-    return [...array].sort(() => Math.random() - 0.5);
-}
+function winner(board) {
 
-function checkWinner(board) {
-
-    const wins = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
+    const lines = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
     ];
 
-    for (const [a, b, c] of wins) {
+    for (const [a,b,c] of lines) {
 
         if (
             board[a] &&
@@ -128,43 +117,25 @@ function checkWinner(board) {
     }
 
     if (board.every(Boolean)) {
-        return "draw";
+        return "DRAW";
     }
 
     return null;
 }
 
-function rpsWinner(a, b) {
-
-    if (a === b) {
-        return "draw";
-    }
-
-    if (
-        (a === "rock" && b === "scissors") ||
-        (a === "paper" && b === "rock") ||
-        (a === "scissors" && b === "paper")
-    ) {
-        return "player1";
-    }
-
-    return "player2";
-}
-
 io.on("connection", socket => {
 
-    console.log("Connected:", socket.id);
+    console.log("Player connected:", socket.id);
 
-    // CREATE ROOM
     socket.on("createRoom", name => {
 
         let code;
 
         do {
             code = createRoomCode();
-        } while (rooms.has(code));
+        } while (rooms[code]);
 
-        const room = {
+        rooms[code] = {
             players: [
                 {
                     id: socket.id,
@@ -174,31 +145,40 @@ io.on("connection", socket => {
 
             game: null,
 
-            data: {}
+            ttt: {
+                board: Array(9).fill(""),
+                turn: socket.id
+            },
+
+            quiz: null,
+
+            rps: {}
         };
 
-        rooms.set(code, room);
-
         socket.join(code);
+
+        socket.roomCode = code;
 
         socket.emit("roomCreated", code);
 
         io.to(code).emit(
             "players",
-            room.players
+            rooms[code].players
         );
     });
 
-    // JOIN ROOM
+
     socket.on("joinRoom", ({ code, name }) => {
 
-        const room = rooms.get(code);
+        code = code.toUpperCase();
+
+        const room = rooms[code];
 
         if (!room) {
 
             socket.emit(
                 "errorMessage",
-                "Room does not exist."
+                "❌ Room not found."
             );
 
             return;
@@ -208,7 +188,7 @@ io.on("connection", socket => {
 
             socket.emit(
                 "errorMessage",
-                "Room is full."
+                "❌ Room is full."
             );
 
             return;
@@ -221,292 +201,293 @@ io.on("connection", socket => {
 
         socket.join(code);
 
+        socket.roomCode = code;
+
         io.to(code).emit(
             "players",
             room.players
         );
     });
 
-    // SELECT GAME
+
     socket.on("selectGame", game => {
 
-        const info = findRoom(socket);
+        const room = getRoom(socket);
 
-        if (!info) return;
+        if (!room) return;
 
-        info.room.game = game;
-        info.room.data = {};
+        room.game = game;
 
-        io.to(info.code).emit(
+        room.ttt = {
+            board: Array(9).fill(""),
+            turn: room.players[0].id
+        };
+
+        room.rps = {};
+
+        io.to(socket.roomCode).emit(
             "gameSelected",
             game
         );
     });
 
+
+    // -------------------------
     // TIC TAC TOE
+    // -------------------------
+
     socket.on("tttMove", index => {
 
-        const info = findRoom(socket);
+        const room = getRoom(socket);
 
-        if (!info) return;
+        if (!room) return;
 
-        const room = info.room;
-
-        if (!room.data.ttt) {
-
-            room.data.ttt = {
-                board: Array(9).fill(""),
-                turn: room.players[0].id
-            };
-        }
-
-        const game = room.data.ttt;
+        const game = room.ttt;
 
         if (game.turn !== socket.id) return;
 
         if (game.board[index]) return;
 
-        const playerIndex =
+        const player =
             room.players.findIndex(
                 p => p.id === socket.id
             );
 
         game.board[index] =
-            playerIndex === 0 ? "X" : "O";
+            player === 0 ? "X" : "O";
 
-        const winner =
-            checkWinner(game.board);
+        const result =
+            winner(game.board);
 
-        if (!winner) {
+        if (!result) {
 
-            const opponent =
+            const other =
                 room.players.find(
                     p => p.id !== socket.id
                 );
 
-            if (opponent) {
-                game.turn = opponent.id;
+            if (other) {
+                game.turn = other.id;
             }
         }
 
-        io.to(info.code).emit(
+        io.to(socket.roomCode).emit(
             "tttUpdate",
             {
                 board: game.board,
                 turn: game.turn,
-                winner
+                result
             }
         );
     });
 
-    // RPS
+
+    // -------------------------
+    // ROCK PAPER SCISSORS
+    // -------------------------
+
     socket.on("rpsChoice", choice => {
 
-        const info = findRoom(socket);
+        const room = getRoom(socket);
 
-        if (!info) return;
+        if (!room) return;
 
-        if (!info.room.data.rps) {
-            info.room.data.rps = {};
-        }
-
-        info.room.data.rps[socket.id] =
-            choice;
-
-        const choices =
-            info.room.data.rps;
+        room.rps[socket.id] = choice;
 
         if (
-            Object.keys(choices).length ===
-            info.room.players.length
+            Object.keys(room.rps).length === 2
         ) {
 
             const ids =
-                Object.keys(choices);
+                Object.keys(room.rps);
 
-            const result =
-                rpsWinner(
-                    choices[ids[0]],
-                    choices[ids[1]]
-                );
+            const a =
+                room.rps[ids[0]];
 
-            io.to(info.code).emit(
+            const b =
+                room.rps[ids[1]];
+
+            let result = "DRAW";
+
+            if (a !== b) {
+
+                if (
+                    (a === "rock" &&
+                        b === "scissors") ||
+
+                    (a === "paper" &&
+                        b === "rock") ||
+
+                    (a === "scissors" &&
+                        b === "paper")
+                ) {
+                    result = ids[0];
+                } else {
+                    result = ids[1];
+                }
+            }
+
+            io.to(socket.roomCode).emit(
                 "rpsResult",
                 {
-                    choices,
+                    choices: room.rps,
                     result
                 }
             );
 
-            info.room.data.rps = {};
+            room.rps = {};
         }
     });
 
+
+    // -------------------------
     // QUIZ
+    // -------------------------
+
     socket.on("startQuiz", () => {
 
-        const info = findRoom(socket);
+        const room = getRoom(socket);
 
-        if (!info) return;
+        if (!room) return;
 
-        info.room.data.quiz = {
+        room.quiz = {
             question: randomQuestion(),
             answers: {}
         };
 
-        io.to(info.code).emit(
+        io.to(socket.roomCode).emit(
             "quizQuestion",
-            info.room.data.quiz.question
+            room.quiz.question
         );
     });
 
+
     socket.on("quizAnswer", answer => {
 
-        const info = findRoom(socket);
+        const room = getRoom(socket);
 
-        if (!info) return;
+        if (!room || !room.quiz) return;
 
-        const quiz =
-            info.room.data.quiz;
-
-        if (!quiz) return;
-
-        quiz.answers[socket.id] =
+        room.quiz.answers[socket.id] =
             Number(answer);
 
         if (
-            Object.keys(quiz.answers).length ===
-            info.room.players.length
+            Object.keys(room.quiz.answers).length === 2
         ) {
 
             const results = {};
 
-            for (const id in quiz.answers) {
+            for (
+                const id in room.quiz.answers
+            ) {
 
                 results[id] =
-                    quiz.answers[id] ===
-                    quiz.question.answer;
+                    room.quiz.answers[id] ===
+                    room.quiz.question.answer;
             }
 
-            io.to(info.code).emit(
+            io.to(socket.roomCode).emit(
                 "quizResult",
                 {
-                    results,
                     correct:
-                        quiz.question.answer
+                        room.quiz.question.answer,
+                    results
                 }
             );
-
-            setTimeout(() => {
-
-                info.room.data.quiz = {
-                    question: randomQuestion(),
-                    answers: {}
-                };
-
-                io.to(info.code).emit(
-                    "quizQuestion",
-                    info.room.data.quiz.question
-                );
-
-            }, 1800);
         }
     });
 
-    // MEMORY
-    socket.on("memoryStart", () => {
 
-        const info = findRoom(socket);
+    // -------------------------
+    // REAL-TIME GAMES
+    // -------------------------
 
-        if (!info) return;
-
-        const cards = shuffle([
-            "🍎", "🍎",
-            "🚀", "🚀",
-            "🎮", "🎮",
-            "🐍", "🐍",
-            "⚡", "⚡",
-            "🔥", "🔥",
-            "👾", "👾",
-            "🎯", "🎯"
-        ]);
-
-        info.room.data.memory = {
-            cards,
-            flipped: [],
-            matched: []
-        };
-
-        io.to(info.code).emit(
-            "memoryBoard",
-            cards
-        );
-    });
-
-    // REAL-TIME STATE
     socket.on("gameState", state => {
 
-        const info = findRoom(socket);
+        if (!socket.roomCode) return;
 
-        if (!info) return;
-
-        socket.to(info.code).emit(
+        socket.to(socket.roomCode).emit(
             "opponentState",
             state
         );
     });
 
+
+    // -------------------------
     // REMATCH
-    socket.on("restartGame", () => {
+    // -------------------------
 
-        const info = findRoom(socket);
+    socket.on("rematch", () => {
 
-        if (!info) return;
+        const room = getRoom(socket);
 
-        info.room.data = {};
+        if (!room) return;
 
-        io.to(info.code).emit(
-            "restartGame"
+        room.ttt = {
+            board: Array(9).fill(""),
+            turn: room.players[0].id
+        };
+
+        room.rps = {};
+
+        room.quiz = null;
+
+        io.to(socket.roomCode).emit(
+            "rematch"
         );
     });
 
+
+    // -------------------------
     // DISCONNECT
+    // -------------------------
+
     socket.on("disconnect", () => {
 
-        const info = findRoom(socket);
+        const code =
+            socket.roomCode;
 
-        if (!info) return;
+        if (!code || !rooms[code]) return;
 
-        info.room.players =
-            info.room.players.filter(
-                p => p.id !== socket.id
+        rooms[code].players =
+            rooms[code].players.filter(
+                player =>
+                    player.id !== socket.id
             );
 
         if (
-            info.room.players.length === 0
+            rooms[code].players.length === 0
         ) {
 
-            rooms.delete(info.code);
+            delete rooms[code];
 
         } else {
 
-            io.to(info.code).emit(
+            io.to(code).emit(
                 "players",
-                info.room.players
+                rooms[code].players
             );
         }
 
         console.log(
-            "Disconnected:",
+            "Player disconnected:",
             socket.id
         );
     });
+
 });
+
 
 server.listen(3000, () => {
 
+    console.log("");
+    console.log("=================================");
+    console.log("🔥 GAMEVERSE IS RUNNING 🔥");
+    console.log("=================================");
+    console.log("");
     console.log(
-        "🔥 GAMEVERSE running at http://localhost:3000"
+        "Open: http://localhost:3000"
     );
+    console.log("");
 
 });
