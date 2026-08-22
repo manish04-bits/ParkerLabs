@@ -1,1 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>GAMEVERSE</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<header>
+
+    <h1>GAME<span>VERSE</span></h1>
+
+    <p>PLAY • COMPETE • DOMINATE</p>
+
+</header>
+
+
+<section id="home" class="screen">
+
+    <div class="card">
+
+        <h2>🎮 Multiplayer Arcade</h2>
+
+        <input
+            id="playerName"
+            placeholder="Enter your name"
+        >
+
+        <button onclick="createRoom()">
+            CREATE ROOM
+        </button>
+
+        <div class="divider">OR</div>
+
+        <input
+            id="roomCode"
+            placeholder="ROOM CODE"
+        >
+
+        <button onclick="joinRoom()">
+            JOIN ROOM
+        </button>
+
+        <p id="message"></p>
+
+    </div>
+
+</section>
+
+
+<section id="lobby" class="screen hidden">
+
+    <div class="card">
+
+        <h2>ROOM <span id="roomDisplay"></span></h2>
+
+        <div id="players"></div>
+
+        <h3>SELECT YOUR GAME</h3>
+
+        <div class="games">
+
+            <button onclick="selectGame('ttt')">
+                ❌⭕ Tic-Tac-Toe
+            </button>
+
+            <button onclick="selectGame('rps')">
+                ✊ RPS
+            </button>
+
+            <button onclick="selectGame('pong')">
+                🏓 Pong
+            </button>
+
+            <button onclick="selectGame('memory')">
+                🃏 Memory Battle
+            </button>
+
+            <button onclick="selectGame('snake')">
+                🐍 Snake
+            </button>
+
+            <button onclick="selectGame('racing')">
+                🏎️ Racing
+            </button>
+
+            <button onclick="selectGame('arena')">
+                🏹 1v1 Arena
+            </button>
+
+            <button onclick="selectGame('quiz')">
+                🧠 Quiz Battle
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="game" class="screen hidden">
+
+    <div class="card">
+
+        <button
+            class="back"
+            onclick="backLobby()"
+        >
+            ← LOBBY
+        </button>
+
+        <h2 id="gameTitle"></h2>
+
+        <div id="gameArea"></div>
+
+    </div>
+
+</section>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+
+</body>
+
+</html>
