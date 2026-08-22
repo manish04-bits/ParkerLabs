@@ -1,7 +1,7 @@
 {
   "name": "gameverse",
   "version": "1.0.0",
-  "description": "GameVerse multiplayer arcade",
+  "description": "GameVerse multiplayer and single-player arcade",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
