@@ -1,1 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>A Little Something 💗</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --pink: #ff7fa8;
+    --pink-light: #ffdce8;
+    --text: #4b3540;
+    --muted: #947681;
+    --white: rgba(255,255,255,.72);
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: "DM Sans", sans-serif;
+    color: var(--text);
+
+    background:
+        radial-gradient(circle at 15% 20%, #ffe9f1 0, transparent 30%),
+        radial-gradient(circle at 85% 20%, #e9e5ff 0, transparent 28%),
+        radial-gradient(circle at 50% 90%, #fff1dc 0, transparent 35%),
+        linear-gradient(135deg, #fff8fb, #f9f5ff);
+}
+
+/* -------------------------
+   FLOATING DECORATIONS
+------------------------- */
+
+.decorations {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.float {
+    position: absolute;
+    opacity: .45;
+    animation: floatAround linear infinite;
+}
+
+@keyframes floatAround {
+    0% {
+        transform: translateY(110vh) rotate(0deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: .45;
+    }
+
+    85% {
+        opacity: .45;
+    }
+
+    100% {
+        transform: translateY(-20vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* -------------------------
+   MAIN
+------------------------- */
+
+.app {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.screen {
+    position: absolute;
+
+    width: min(720px, 90%);
+
+    text-align: center;
+
+    opacity: 0;
+    transform: translateY(25px) scale(.97);
+    pointer-events: none;
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.screen.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+/* -------------------------
+   CARD
+------------------------- */
+
+.card {
+    padding: 65px 45px;
+
+    border: 1px solid rgba(255,255,255,.9);
+
+    border-radius: 35px;
+
+    background: rgba(255,255,255,.52);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 25px 80px rgba(100,70,90,.10),
+        inset 0 1px 0 rgba(255,255,255,.8);
+}
+
+/* -------------------------
+   TEXT
+------------------------- */
+
+.eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+
+    color: var(--muted);
+
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(42px, 7vw, 70px);
+
+    font-weight: 400;
+
+    line-height: 1.1;
+
+    color: #49343e;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.description {
+    margin: 25px auto 0;
+
+    max-width: 480px;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    color: var(--muted);
+}
+
+/* -------------------------
+   BUTTONS
+------------------------- */
+
+.buttons {
+    margin-top: 40px;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+}
+
+button {
+    border: none;
+
+    padding: 14px 27px;
+
+    border-radius: 50px;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        background .35s ease;
+}
+
+.yes {
+    background: linear-gradient(
+        135deg,
+        #ff91b5,
+        #ff6f9e
+    );
+
+    color: white;
+
+    box-shadow:
+        0 10px 25px rgba(255,111,158,.25);
+}
+
+.yes:hover {
+    transform: translateY(-3px) scale(1.03);
+
+    box-shadow:
+        0 15px 35px rgba(255,111,158,.35);
+}
+
+.no {
+    background: rgba(255,255,255,.75);
+
+    color: #806671;
+
+    border: 1px solid rgba(160,120,140,.15);
+}
+
+.no:hover {
+    transform: translateY(-3px);
+}
+
+/* -------------------------
+   YES ROTATION
+------------------------- */
+
+.spin {
+    animation: playfulSpin .75s ease;
+}
+
+@keyframes playfulSpin {
+
+    0% {
+        transform: rotate(0deg);
+    }
+
+    35% {
+        transform: rotate(180deg) scale(1.08);
+    }
+
+    70% {
+        transform: rotate(360deg) scale(.95);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+/* -------------------------
+   MESSAGE
+------------------------- */
+
+.reaction {
+    min-height: 25px;
+
+    margin-top: 18px;
+
+    font-size: 13px;
+
+    color: #ad7187;
+
+    transition: opacity .3s;
+}
+
+/* -------------------------
+   QUESTION
+------------------------- */
+
+.question-number {
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    color: #ad8492;
+
+    margin-bottom: 22px;
+}
+
+.question {
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(30px, 5vw, 48px);
+
+    line-height: 1.25;
+}
+
+.answers {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 13px;
+
+    margin-top: 35px;
+}
+
+.answer {
+    background: rgba(255,255,255,.7);
+
+    border: 1px solid rgba(180,130,150,.13);
+
+    color: #654b57;
+
+    padding: 17px;
+
+    border-radius: 18px;
+
+    text-align: left;
+}
+
+.answer:hover {
+    background: white;
+
+    transform: translateY(-3px);
+}
+
+/* -------------------------
+   QUESTION TRANSITION
+------------------------- */
+
+.fade-out {
+    opacity: 0 !important;
+
+    transform:
+        translateY(-15px)
+        scale(.98) !important;
+}
+
+/* -------------------------
+   FINAL
+------------------------- */
+
+.final-text {
+    font-family: "Playfair Display", serif;
+
+    font-size: 24px;
+
+    line-height: 1.8;
+
+    color: #765563;
+
+    margin-top: 25px;
+}
+
+/* -------------------------
+   MOBILE
+------------------------- */
+
+@media(max-width: 600px) {
+
+    .card {
+        padding: 45px 25px;
+        border-radius: 27px;
+    }
+
+    .answers {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 43px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- FLOATING DECORATIONS -->
+
+<div class="decorations">
+
+    <div class="float" style="left:8%; font-size:22px; animation-duration:13s;">♡</div>
+    <div class="float" style="left:18%; font-size:14px; animation-duration:16s; animation-delay:2s;">✦</div>
+    <div class="float" style="left:32%; font-size:18px; animation-duration:12s; animation-delay:5s;">♡</div>
+    <div class="float" style="left:48%; font-size:12px; animation-duration:15s; animation-delay:1s;">✦</div>
+    <div class="float" style="left:63%; font-size:20px; animation-duration:14s; animation-delay:4s;">♡</div>
+    <div class="float" style="left:78%; font-size:15px; animation-duration:17s; animation-delay:3s;">✦</div>
+    <div class="float" style="left:90%; font-size:23px; animation-duration:12s; animation-delay:6s;">♡</div>
+
+</div>
+
+
+<div class="app">
+
+    <!-- =====================
+         INTRO
+    ====================== -->
+
+    <section class="screen active" id="intro">
+
+        <div class="card">
+
+            <div class="eyebrow">
+                just a little question
+            </div>
+
+            <h1>
+                Some things are<br>
+                <span class="italic">easier to show</span>
+                than to say.
+            </h1>
+
+            <p class="description">
+                I've been trying to express something...
+                and I thought maybe this would be a better way.
+            </p>
+
+            <div class="buttons">
+
+                <button
+                    class="yes"
+                    id="yesButton"
+                    onclick="yesClicked()">
+                    Yes, I'm interested
+                </button>
+
+                <button
+                    class="no"
+                    onclick="notInterested()">
+                    Not really
+                </button>
+
+            </div>
+
+            <div
+                class="reaction"
+                id="reaction">
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================
+         QUESTION 1
+    ====================== -->
+
+    <section class="screen" id="question1">
+
+        <div class="card">
+
+            <div class="question-number">
+                QUESTION 01
+            </div>
+
+            <div class="question">
+                What can turn an ordinary day<br>
+                into a good one?
+            </div>
+
+            <div class="answers">
+
+                <button class="answer" onclick="nextQuestion()">
+                    A good conversation
+                </button>
+
+                <button class="answer" onclick="nextQuestion()">
+                    Something unexpected
+                </button>
+
+                <button class="answer" onclick="nextQuestion()">
+                    Being around someone special
+                </button>
+
+                <button class="answer" onclick="nextQuestion()">
+                    I don't know...
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================
+         QUESTION 2
+    ====================== -->
+
+    <section class="screen" id="question2">
+
+        <div class="card">
+
+            <div class="question-number">
+                QUESTION 02
+            </div>
+
+            <div class="question">
+                Do little moments<br>
+                sometimes mean a lot?
+            </div>
+
+            <div class="answers">
+
+                <button class="answer" onclick="nextQuestion()">
+                    Definitely
+                </button>
+
+                <button class="answer" onclick="nextQuestion()">
+                    Sometimes
+                </button>
+
+                <button class="answer" onclick="nextQuestion()">
+                    Maybe...
+                </button>
+
+                <button class="answer" onclick="nextQuestion()">
+                    Not really
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================
+         QUESTION 3
+    ====================== -->
+
+    <section class="screen" id="question3">
+
+        <div class="card">
+
+            <div class="question-number">
+                ONE LAST QUESTION
+            </div>
+
+            <div class="question">
+                Can someone make<br>
+                your day better...
+                <span class="italic">without trying?</span>
+            </div>
+
+            <div class="answers">
+
+                <button class="answer" onclick="showReveal()">
+                    Yes
+                </button>
+
+                <button class="answer" onclick="showReveal()">
+                    I think so
+                </button>
+
+                <button class="answer" onclick="showReveal()">
+                    Maybe
+                </button>
+
+                <button class="answer" onclick="showReveal()">
+                    Hmm...
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================
+         REVEAL
+    ====================== -->
+
+    <section class="screen" id="reveal">
+
+        <div class="card">
+
+            <div class="eyebrow">
+                maybe you understand now
+            </div>
+
+            <h1>
+                You make my<br>
+                <span class="italic">ordinary days</span>
+                different.
+            </h1>
+
+            <p class="final-text">
+                And there are a few things<br>
+                I've been wanting you to know.
+            </p>
+
+            <button class="yes" onclick="comingSoon()">
+                Keep going
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+/* ==========================
+   YES BUTTON
+========================== */
+
+let yesClicks = 0;
+
+const yesButton =
+    document.getElementById("yesButton");
+
+const reaction =
+    document.getElementById("reaction");
+
+
+function yesClicked() {
+
+    yesClicks++;
+
+    /* First three clicks */
+
+    if (yesClicks <= 3) {
+
+        yesButton.classList.remove("spin");
+
+        /* Restart animation */
+
+        void yesButton.offsetWidth;
+
+        yesButton.classList.add("spin");
+
+        const messages = [
+
+            "Wait... really? 👀",
+
+            "Okay, okay... 😭",
+
+            "Alright... now we're getting somewhere."
+
+        ];
+
+        reaction.textContent =
+            messages[yesClicks - 1];
+
+        if (yesClicks === 3) {
+
+            setTimeout(() => {
+
+                reaction.textContent =
+                    "Okay. I think you're ready.";
+
+            }, 800);
+
+        }
+
+        return;
+    }
+
+    /* After three clicks */
+
+    goTo("question1");
+}
+
+
+/* ==========================
+   NOT INTERESTED
+========================== */
+
+function notInterested() {
+
+    reaction.textContent =
+        "That's completely okay. 💗";
+
+}
+
+
+/* ==========================
+   QUESTIONS
+========================== */
+
+function nextQuestion() {
+
+    if (
+        document
+        .getElementById("question1")
+        .classList.contains("active")
+    ) {
+
+        goTo("question2");
+
+    }
+
+    else {
+
+        goTo("question3");
+
+    }
+
+}
+
+
+/* ==========================
+   REVEAL
+========================== */
+
+function showReveal() {
+
+    goTo("reveal");
+
+}
+
+
+/* ==========================
+   SCREEN SYSTEM
+========================== */
+
+function goTo(id) {
+
+    const current =
+        document.querySelector(".screen.active");
+
+    const next =
+        document.getElementById(id);
+
+    if (!next || current === next)
+        return;
+
+    current.classList.add("fade-out");
+
+    setTimeout(() => {
+
+        current.classList.remove("active");
+        current.classList.remove("fade-out");
+
+        next.classList.add("active");
+
+    }, 500);
+
+}
+
+
+/* ==========================
+   FINAL BUTTON
+========================== */
+
+function comingSoon() {
+
+    alert(
+        "This is where we'll build the next part of the story. 💗"
+    );
+
+}
+
+</script>
+
+</body>
+</html>
