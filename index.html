@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Something I Wanted To Say 🤍</title>
 
-<title>A Little Something 💗</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
-
 * {
     margin: 0;
     padding: 0;
@@ -16,752 +15,1092 @@
 }
 
 :root {
-    --pink: #ff7fa8;
-    --pink-light: #ffdce8;
-    --text: #4b3540;
-    --muted: #947681;
-    --white: rgba(255,255,255,.72);
+    --pink: #ffb7d5;
+    --soft-pink: #ffd8e8;
+    --lavender: #d8c8ff;
+    --white: #fffaff;
+    --muted: #b9aeb8;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 body {
-    min-height: 100vh;
-    overflow: hidden;
     font-family: "DM Sans", sans-serif;
-    color: var(--text);
-
+    color: var(--white);
     background:
-        radial-gradient(circle at 15% 20%, #ffe9f1 0, transparent 30%),
-        radial-gradient(circle at 85% 20%, #e9e5ff 0, transparent 28%),
-        radial-gradient(circle at 50% 90%, #fff1dc 0, transparent 35%),
-        linear-gradient(135deg, #fff8fb, #f9f5ff);
+        radial-gradient(circle at 20% 20%, rgba(255, 155, 202, .16), transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(180, 150, 255, .14), transparent 32%),
+        #0d0a12;
 }
 
-/* -------------------------
-   FLOATING DECORATIONS
-------------------------- */
+/* ---------------- BACKGROUND ---------------- */
 
-.decorations {
+.background {
     position: fixed;
     inset: 0;
     overflow: hidden;
     pointer-events: none;
 }
 
-.float {
+.glow {
     position: absolute;
-    opacity: .45;
-    animation: floatAround linear infinite;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: .12;
+    animation: drift 12s ease-in-out infinite alternate;
 }
 
-@keyframes floatAround {
-    0% {
+.glow.one {
+    background: #ff8fbd;
+    top: -180px;
+    left: -150px;
+}
+
+.glow.two {
+    background: #9f82ff;
+    right: -170px;
+    bottom: -200px;
+    animation-delay: -5s;
+}
+
+@keyframes drift {
+    from {
+        transform: translate(0,0) scale(1);
+    }
+    to {
+        transform: translate(60px,30px) scale(1.15);
+    }
+}
+
+/* floating particles */
+
+.particle {
+    position: absolute;
+    color: rgba(255,210,230,.5);
+    font-size: 12px;
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    from {
         transform: translateY(110vh) rotate(0deg);
         opacity: 0;
     }
-
-    15% {
-        opacity: .45;
-    }
-
-    85% {
-        opacity: .45;
-    }
-
-    100% {
-        transform: translateY(-20vh) rotate(360deg);
+    15% { opacity: .7; }
+    85% { opacity: .7; }
+    to {
+        transform: translateY(-15vh) rotate(180deg);
         opacity: 0;
     }
 }
 
-/* -------------------------
-   MAIN
-------------------------- */
+/* ---------------- APP ---------------- */
 
-.app {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 25px;
+#app {
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 .screen {
     position: absolute;
-
-    width: min(720px, 90%);
-
-    text-align: center;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
 
     opacity: 0;
-    transform: translateY(25px) scale(.97);
-    pointer-events: none;
-
+    visibility: hidden;
+    transform: scale(.97);
     transition:
         opacity .8s ease,
-        transform .8s ease;
+        transform .8s cubic-bezier(.22,1,.36,1),
+        visibility .8s;
 }
 
 .screen.active {
     opacity: 1;
-    transform: translateY(0) scale(1);
-    pointer-events: auto;
+    visibility: visible;
+    transform: scale(1);
 }
 
-/* -------------------------
-   CARD
-------------------------- */
+/* ---------------- INTRO ---------------- */
 
-.card {
-    padding: 65px 45px;
-
-    border: 1px solid rgba(255,255,255,.9);
-
-    border-radius: 35px;
-
-    background: rgba(255,255,255,.52);
-
-    backdrop-filter: blur(20px);
-
-    box-shadow:
-        0 25px 80px rgba(100,70,90,.10),
-        inset 0 1px 0 rgba(255,255,255,.8);
+.intro {
+    text-align: center;
+    max-width: 850px;
 }
 
-/* -------------------------
-   TEXT
-------------------------- */
-
-.eyebrow {
-    font-size: 11px;
+.tiny {
+    color: var(--pink);
+    font-size: 13px;
     letter-spacing: 4px;
     text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: .8;
+}
 
+.intro h1 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(38px, 7vw, 78px);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -2px;
+}
+
+.intro h1 span {
+    color: var(--soft-pink);
+}
+
+.sub {
+    margin-top: 28px;
     color: var(--muted);
+    font-size: 16px;
+    letter-spacing: .5px;
+}
 
+.interest {
+    margin-top: 48px;
+}
+
+.interest p {
+    font-family: "Playfair Display", serif;
+    font-size: 28px;
     margin-bottom: 25px;
 }
 
-h1 {
-    font-family: "Playfair Display", serif;
-
-    font-size: clamp(42px, 7vw, 70px);
-
-    font-weight: 400;
-
-    line-height: 1.1;
-
-    color: #49343e;
-}
-
-.italic {
-    font-style: italic;
-}
-
-.description {
-    margin: 25px auto 0;
-
-    max-width: 480px;
-
-    font-size: 15px;
-
-    line-height: 1.8;
-
-    color: var(--muted);
-}
-
-/* -------------------------
-   BUTTONS
-------------------------- */
-
 .buttons {
-    margin-top: 40px;
-
     display: flex;
-
     justify-content: center;
-
-    gap: 15px;
-
+    gap: 14px;
     flex-wrap: wrap;
 }
 
 button {
-    border: none;
-
-    padding: 14px 27px;
-
-    border-radius: 50px;
-
     font-family: inherit;
-
-    font-size: 13px;
-
     cursor: pointer;
+    border: none;
+}
 
+.btn {
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-size: 14px;
     transition:
-        transform .35s ease,
-        box-shadow .35s ease,
-        background .35s ease;
+        transform .4s cubic-bezier(.22,1,.36,1),
+        box-shadow .4s ease,
+        background .4s ease;
 }
 
 .yes {
-    background: linear-gradient(
-        135deg,
-        #ff91b5,
-        #ff6f9e
-    );
-
-    color: white;
-
-    box-shadow:
-        0 10px 25px rgba(255,111,158,.25);
+    background: linear-gradient(135deg, #ffd0e3, #e8d8ff);
+    color: #211823;
+    box-shadow: 0 10px 40px rgba(255,170,210,.18);
 }
 
 .yes:hover {
-    transform: translateY(-3px) scale(1.03);
-
-    box-shadow:
-        0 15px 35px rgba(255,111,158,.35);
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 15px 50px rgba(255,170,210,.3);
 }
 
 .no {
-    background: rgba(255,255,255,.75);
-
-    color: #806671;
-
-    border: 1px solid rgba(160,120,140,.15);
+    color: #d0c6cf;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
 }
 
 .no:hover {
-    transform: translateY(-3px);
+    background: rgba(255,255,255,.1);
 }
 
-/* -------------------------
-   YES ROTATION
-------------------------- */
+/* ---------------- MESSAGE ---------------- */
 
-.spin {
-    animation: playfulSpin .75s ease;
+.message {
+    text-align: center;
+    max-width: 650px;
 }
 
-@keyframes playfulSpin {
+.message .emoji {
+    font-size: 70px;
+    margin-bottom: 25px;
+    animation: breathe 2.5s ease-in-out infinite;
+}
 
-    0% {
-        transform: rotate(0deg);
-    }
-
-    35% {
-        transform: rotate(180deg) scale(1.08);
-    }
-
-    70% {
-        transform: rotate(360deg) scale(.95);
-    }
-
-    100% {
-        transform: rotate(360deg) scale(1);
+@keyframes breathe {
+    50% {
+        transform: scale(1.08);
     }
 }
 
-/* -------------------------
-   MESSAGE
-------------------------- */
-
-.reaction {
-    min-height: 25px;
-
-    margin-top: 18px;
-
-    font-size: 13px;
-
-    color: #ad7187;
-
-    transition: opacity .3s;
+.message h2 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(35px, 6vw, 62px);
+    font-weight: 400;
 }
 
-/* -------------------------
-   QUESTION
-------------------------- */
-
-.question-number {
-    font-size: 11px;
-
-    letter-spacing: 3px;
-
-    color: #ad8492;
-
-    margin-bottom: 22px;
+.message p {
+    margin-top: 20px;
+    color: var(--muted);
+    line-height: 1.8;
 }
+
+/* ---------------- QUESTIONS ---------------- */
 
 .question {
+    width: min(850px, 100%);
+    text-align: center;
+}
+
+.progress {
+    color: #9f929d;
+    font-size: 12px;
+    letter-spacing: 3px;
+    margin-bottom: 35px;
+}
+
+.question h2 {
     font-family: "Playfair Display", serif;
+    font-weight: 400;
+    font-size: clamp(34px, 5vw, 60px);
+    line-height: 1.2;
+}
 
-    font-size: clamp(30px, 5vw, 48px);
-
-    line-height: 1.25;
+.question .hint {
+    margin-top: 15px;
+    color: #9f929d;
+    font-size: 14px;
 }
 
 .answers {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
+    margin-top: 45px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 13px;
-
-    margin-top: 35px;
 }
 
 .answer {
-    background: rgba(255,255,255,.7);
+    padding: 15px 23px;
+    color: #f8edf4;
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.11);
+    border-radius: 100px;
+    backdrop-filter: blur(10px);
 
-    border: 1px solid rgba(180,130,150,.13);
-
-    color: #654b57;
-
-    padding: 17px;
-
-    border-radius: 18px;
-
-    text-align: left;
+    transition:
+        transform .35s ease,
+        background .35s ease,
+        border .35s ease;
 }
 
 .answer:hover {
-    background: white;
-
-    transform: translateY(-3px);
+    transform: translateY(-5px);
+    background: rgba(255,190,220,.12);
+    border-color: rgba(255,190,220,.35);
 }
 
-/* -------------------------
-   QUESTION TRANSITION
-------------------------- */
-
-.fade-out {
-    opacity: 0 !important;
-
-    transform:
-        translateY(-15px)
-        scale(.98) !important;
+.answer.selected {
+    transform: scale(1.06);
+    background: linear-gradient(
+        135deg,
+        rgba(255,185,215,.25),
+        rgba(205,185,255,.2)
+    );
+    border-color: rgba(255,210,230,.5);
 }
 
-/* -------------------------
-   FINAL
-------------------------- */
+/* ---------------- TRANSITION ---------------- */
+
+.transition {
+    text-align: center;
+}
+
+.transition p {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(32px, 6vw, 68px);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: revealText 2s forwards;
+}
+
+@keyframes revealText {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------------- FINAL ---------------- */
+
+.final {
+    width: min(900px, 100%);
+    text-align: center;
+    max-height: 90vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.final::-webkit-scrollbar {
+    display: none;
+}
+
+.final .small-title {
+    color: var(--pink);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-size: 11px;
+    margin-bottom: 25px;
+}
+
+.final h1 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(40px, 7vw, 78px);
+    font-weight: 400;
+    margin-bottom: 35px;
+}
 
 .final-text {
-    font-family: "Playfair Display", serif;
-
-    font-size: 24px;
-
-    line-height: 1.8;
-
-    color: #765563;
-
-    margin-top: 25px;
+    color: #d8ced6;
+    font-size: clamp(16px, 2vw, 19px);
+    line-height: 2;
+    text-align: center;
 }
 
-/* -------------------------
-   MOBILE
-------------------------- */
+.final-text strong {
+    display: block;
+    margin-top: 30px;
+    color: #ffe0ec;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 500;
+    line-height: 1.5;
+}
 
-@media(max-width: 600px) {
+.heart {
+    margin-top: 35px;
+    font-size: 24px;
+    animation: breathe 2s infinite;
+}
 
-    .card {
-        padding: 45px 25px;
-        border-radius: 27px;
+/* ---------------- MOBILE ---------------- */
+
+@media(max-width:600px) {
+
+    .intro h1 {
+        letter-spacing: -1px;
+    }
+
+    .interest p {
+        font-size: 23px;
+    }
+
+    .question h2 {
+        font-size: 34px;
     }
 
     .answers {
-        grid-template-columns: 1fr;
+        margin-top: 30px;
     }
 
-    h1 {
-        font-size: 43px;
+    .answer {
+        width: 100%;
+        max-width: 330px;
+    }
+
+    .final {
+        padding: 15px;
+    }
+
+    .final-text {
+        line-height: 1.8;
     }
 }
+
+/* YES rotation */
+
+.rotate-left {
+    animation: rotateLeft .65s ease;
+}
+
+.rotate-right {
+    animation: rotateRight .65s ease;
+}
+
+@keyframes rotateLeft {
+    50% {
+        transform: rotate(-18deg) scale(1.05);
+    }
+}
+
+@keyframes rotateRight {
+    50% {
+        transform: rotate(18deg) scale(1.05);
+    }
+}
+
+/* crying */
+
+.cry {
+    animation: cry .9s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes cry {
+    0% {
+        transform: scale(.2) rotate(-10deg);
+    }
+    60% {
+        transform: scale(1.25) rotate(5deg);
+    }
+    100% {
+        transform: scale(1) rotate(0);
+    }
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- FLOATING DECORATIONS -->
-
-<div class="decorations">
-
-    <div class="float" style="left:8%; font-size:22px; animation-duration:13s;">♡</div>
-    <div class="float" style="left:18%; font-size:14px; animation-duration:16s; animation-delay:2s;">✦</div>
-    <div class="float" style="left:32%; font-size:18px; animation-duration:12s; animation-delay:5s;">♡</div>
-    <div class="float" style="left:48%; font-size:12px; animation-duration:15s; animation-delay:1s;">✦</div>
-    <div class="float" style="left:63%; font-size:20px; animation-duration:14s; animation-delay:4s;">♡</div>
-    <div class="float" style="left:78%; font-size:15px; animation-duration:17s; animation-delay:3s;">✦</div>
-    <div class="float" style="left:90%; font-size:23px; animation-duration:12s; animation-delay:6s;">♡</div>
-
+<div class="background">
+    <div class="glow one"></div>
+    <div class="glow two"></div>
 </div>
 
+<div id="particles"></div>
 
-<div class="app">
+<div id="app">
 
-    <!-- =====================
-         INTRO
-    ====================== -->
+<!-- ================= INTRO ================= -->
 
-    <section class="screen active" id="intro">
+<section class="screen active" id="introScreen">
 
-        <div class="card">
+    <div class="intro">
 
-            <div class="eyebrow">
-                just a little question
-            </div>
+        <div class="tiny">just a little something</div>
 
-            <h1>
-                Some things are<br>
-                <span class="italic">easier to show</span>
-                than to say.
-            </h1>
+        <h1>
+            Some things are<br>
+            <span>easier to show</span><br>
+            than to say.
+        </h1>
 
-            <p class="description">
-                I've been trying to express something...
-                and I thought maybe this would be a better way.
-            </p>
+        <div class="sub">
+            so… let me try.
+        </div>
+
+        <div class="interest">
+
+            <p>Are you interested? 👀</p>
 
             <div class="buttons">
 
                 <button
-                    class="yes"
-                    id="yesButton"
-                    onclick="yesClicked()">
-                    Yes, I'm interested
+                    class="btn yes"
+                    id="yesBtn"
+                    onclick="firstYes()">
+                    Yes 🤍
                 </button>
 
                 <button
-                    class="no"
-                    onclick="notInterested()">
-                    Not really
-                </button>
-
-            </div>
-
-            <div
-                class="reaction"
-                id="reaction">
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================
-         QUESTION 1
-    ====================== -->
-
-    <section class="screen" id="question1">
-
-        <div class="card">
-
-            <div class="question-number">
-                QUESTION 01
-            </div>
-
-            <div class="question">
-                What can turn an ordinary day<br>
-                into a good one?
-            </div>
-
-            <div class="answers">
-
-                <button class="answer" onclick="nextQuestion()">
-                    A good conversation
-                </button>
-
-                <button class="answer" onclick="nextQuestion()">
-                    Something unexpected
-                </button>
-
-                <button class="answer" onclick="nextQuestion()">
-                    Being around someone special
-                </button>
-
-                <button class="answer" onclick="nextQuestion()">
-                    I don't know...
+                    class="btn no"
+                    onclick="firstNo()">
+                    Nope, not really
                 </button>
 
             </div>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <!-- =====================
-         QUESTION 2
-    ====================== -->
+<!-- ================= ARE YOU SURE ================= -->
 
-    <section class="screen" id="question2">
+<section class="screen" id="sureScreen">
 
-        <div class="card">
+    <div class="message">
 
-            <div class="question-number">
-                QUESTION 02
-            </div>
+        <div class="emoji">🥺</div>
 
-            <div class="question">
-                Do little moments<br>
-                sometimes mean a lot?
-            </div>
+        <h2>Are you sure?</h2>
 
-            <div class="answers">
+        <p>
+            You really want to miss what comes next?
+        </p>
 
-                <button class="answer" onclick="nextQuestion()">
-                    Definitely
-                </button>
+        <div class="buttons" style="margin-top:35px;">
 
-                <button class="answer" onclick="nextQuestion()">
-                    Sometimes
-                </button>
+            <button
+                class="btn yes"
+                onclick="sureYes()">
+                Yes, I'm sure
+            </button>
 
-                <button class="answer" onclick="nextQuestion()">
-                    Maybe...
-                </button>
-
-                <button class="answer" onclick="nextQuestion()">
-                    Not really
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================
-         QUESTION 3
-    ====================== -->
-
-    <section class="screen" id="question3">
-
-        <div class="card">
-
-            <div class="question-number">
-                ONE LAST QUESTION
-            </div>
-
-            <div class="question">
-                Can someone make<br>
-                your day better...
-                <span class="italic">without trying?</span>
-            </div>
-
-            <div class="answers">
-
-                <button class="answer" onclick="showReveal()">
-                    Yes
-                </button>
-
-                <button class="answer" onclick="showReveal()">
-                    I think so
-                </button>
-
-                <button class="answer" onclick="showReveal()">
-                    Maybe
-                </button>
-
-                <button class="answer" onclick="showReveal()">
-                    Hmm...
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================
-         REVEAL
-    ====================== -->
-
-    <section class="screen" id="reveal">
-
-        <div class="card">
-
-            <div class="eyebrow">
-                maybe you understand now
-            </div>
-
-            <h1>
-                You make my<br>
-                <span class="italic">ordinary days</span>
-                different.
-            </h1>
-
-            <p class="final-text">
-                And there are a few things<br>
-                I've been wanting you to know.
-            </p>
-
-            <button class="yes" onclick="comingSoon()">
-                Keep going
+            <button
+                class="btn no"
+                onclick="backToIntro()">
+                Hmm… maybe
             </button>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
+
+
+<!-- ================= CRY ================= -->
+
+<section class="screen" id="cryScreen">
+
+    <div class="message">
+
+        <div class="emoji cry">😭</div>
+
+        <h2>Seriously?</h2>
+
+        <p>
+            Okay… that actually hurt a little. 😭
+        </p>
+
+        <div class="buttons" style="margin-top:35px;">
+
+            <button
+                class="btn yes"
+                onclick="secondChance()">
+                Okay, I'm interested 🤍
+            </button>
+
+            <button
+                class="btn no"
+                onclick="finalNo()">
+                No 😭
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LAST CHANCE ================= -->
+
+<section class="screen" id="lastScreen">
+
+    <div class="message">
+
+        <div class="emoji">😤</div>
+
+        <h2>Okay okay…</h2>
+
+        <p>
+            You have officially used all your chances. 😂
+        </p>
+
+        <button
+            class="btn yes"
+            style="margin-top:30px;"
+            onclick="thankYou()">
+            Fine… I'm interested 🤍
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= THANK YOU ================= -->
+
+<section class="screen" id="thankScreen">
+
+    <div class="message">
+
+        <div class="emoji">🥹🤍</div>
+
+        <h2>Thank you so much.</h2>
+
+        <p>
+            Okay… now that you're here,<br>
+            I have a few little questions.
+        </p>
+
+        <button
+            class="btn yes"
+            style="margin-top:35px;"
+            onclick="startQuestions()">
+            Let's go ✨
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= QUESTION ================= -->
+
+<section class="screen" id="questionScreen">
+
+    <div class="question">
+
+        <div class="progress" id="progress">
+            01 / 07
+        </div>
+
+        <h2 id="questionText"></h2>
+
+        <div class="hint" id="questionHint"></div>
+
+        <div class="answers" id="answers"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TRANSITION ================= -->
+
+<section class="screen" id="transitionScreen">
+
+    <div class="transition">
+
+        <p id="transitionText"></p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FINAL ================= -->
+
+<section class="screen" id="finalScreen">
+
+    <div class="final">
+
+        <div class="small-title">
+            okay… this is the part
+        </div>
+
+        <h1>What I really wanted to say…</h1>
+
+        <div class="final-text">
+
+            Maybe I never really knew how to say all of this properly,
+            so I thought I'd let this little website say it for me.
+            Being around you has a way of making ordinary moments feel
+            a little different. Somehow, conversations with you stay in
+            my mind longer than they probably should, and even the
+            smallest moments can make my day better.
+
+            I don't know exactly when it happened or when you became
+            this special to me, but somewhere along the way, I started
+            caring about you in a way that feels different.
+
+            I love the comfort we have, the little conversations,
+            the laughs, the random moments, and simply knowing that
+            you're there.
+
+            I'm not expecting you to have the perfect answer, and I'm
+            not asking you to feel anything just because I do.
+
+            I just wanted you to know what has been sitting in my heart
+            for a while.
+
+            You are genuinely special to me, and maybe the simplest
+            way I can put it is this:
+
+            <strong>
+                I really, really like having you in my life,
+                and I think I like you a little more than
+                I ever planned to. 🤍
+            </strong>
+
+            <div class="heart">♡</div>
+
+        </div>
+
+    </div>
+
+</section>
 
 </div>
 
 
 <script>
 
-/* ==========================
-   YES BUTTON
-========================== */
+/* ================= PARTICLES ================= */
 
-let yesClicks = 0;
+const symbols = ["✦", "♡", "·", "✧", "⋆"];
 
-const yesButton =
-    document.getElementById("yesButton");
+for(let i = 0; i < 35; i++){
 
-const reaction =
-    document.getElementById("reaction");
+    const particle = document.createElement("div");
 
+    particle.className = "particle";
 
-function yesClicked() {
+    particle.innerHTML =
+        symbols[Math.floor(Math.random() * symbols.length)];
 
-    yesClicks++;
+    particle.style.left = Math.random() * 100 + "%";
+    particle.style.animationDuration =
+        (8 + Math.random() * 12) + "s";
 
-    /* First three clicks */
+    particle.style.animationDelay =
+        (-Math.random() * 15) + "s";
 
-    if (yesClicks <= 3) {
+    particle.style.fontSize =
+        (8 + Math.random() * 12) + "px";
 
-        yesButton.classList.remove("spin");
-
-        /* Restart animation */
-
-        void yesButton.offsetWidth;
-
-        yesButton.classList.add("spin");
-
-        const messages = [
-
-            "Wait... really? 👀",
-
-            "Okay, okay... 😭",
-
-            "Alright... now we're getting somewhere."
-
-        ];
-
-        reaction.textContent =
-            messages[yesClicks - 1];
-
-        if (yesClicks === 3) {
-
-            setTimeout(() => {
-
-                reaction.textContent =
-                    "Okay. I think you're ready.";
-
-            }, 800);
-
-        }
-
-        return;
-    }
-
-    /* After three clicks */
-
-    goTo("question1");
+    document
+        .getElementById("particles")
+        .appendChild(particle);
 }
 
 
-/* ==========================
-   NOT INTERESTED
-========================== */
+/* ================= SCREEN CONTROL ================= */
 
-function notInterested() {
+function showScreen(id){
 
-    reaction.textContent =
-        "That's completely okay. 💗";
-
-}
-
-
-/* ==========================
-   QUESTIONS
-========================== */
-
-function nextQuestion() {
-
-    if (
-        document
-        .getElementById("question1")
-        .classList.contains("active")
-    ) {
-
-        goTo("question2");
-
-    }
-
-    else {
-
-        goTo("question3");
-
-    }
-
-}
-
-
-/* ==========================
-   REVEAL
-========================== */
-
-function showReveal() {
-
-    goTo("reveal");
-
-}
-
-
-/* ==========================
-   SCREEN SYSTEM
-========================== */
-
-function goTo(id) {
-
-    const current =
-        document.querySelector(".screen.active");
-
-    const next =
-        document.getElementById(id);
-
-    if (!next || current === next)
-        return;
-
-    current.classList.add("fade-out");
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen => {
+            screen.classList.remove("active");
+        });
 
     setTimeout(() => {
 
-        current.classList.remove("active");
-        current.classList.remove("fade-out");
+        document
+            .getElementById(id)
+            .classList.add("active");
 
-        next.classList.add("active");
-
-    }, 500);
+    }, 100);
 
 }
 
 
-/* ==========================
-   FINAL BUTTON
-========================== */
+/* ================= FIRST YES ================= */
 
-function comingSoon() {
+let yesClicks = 0;
 
-    alert(
-        "This is where we'll build the next part of the story. 💗"
-    );
+function firstYes(){
+
+    const btn = document.getElementById("yesBtn");
+
+    yesClicks++;
+
+    if(yesClicks === 1){
+
+        btn.classList.add("rotate-left");
+
+        btn.innerText = "Wait… not yet 😭";
+
+        setTimeout(() => {
+            btn.classList.remove("rotate-left");
+        }, 650);
+
+    }
+
+    else if(yesClicks === 2){
+
+        btn.classList.add("rotate-right");
+
+        btn.innerText = "Okay okay… 😭";
+
+        setTimeout(() => {
+            btn.classList.remove("rotate-right");
+        }, 650);
+
+    }
+
+    else{
+
+        btn.innerText = "Now 🤍";
+
+        setTimeout(() => {
+
+            showScreen("thankScreen");
+
+        }, 500);
+
+    }
+
+}
+
+
+/* ================= FIRST NO ================= */
+
+function firstNo(){
+
+    showScreen("sureScreen");
+
+}
+
+
+/* ================= SURE ================= */
+
+function sureYes(){
+
+    showScreen("cryScreen");
+
+}
+
+
+function backToIntro(){
+
+    showScreen("introScreen");
+
+}
+
+
+/* ================= SECOND CHANCE ================= */
+
+function secondChance(){
+
+    showScreen("thankScreen");
+
+}
+
+
+/* ================= FINAL NO ================= */
+
+function finalNo(){
+
+    showScreen("lastScreen");
+
+}
+
+
+/* ================= THANK YOU ================= */
+
+function thankYou(){
+
+    showScreen("thankScreen");
+
+}
+
+
+/* ================= QUESTIONS ================= */
+
+const questions = [
+
+{
+    text:
+    "Do you feel comfortable being completely yourself around me?",
+    hint: "be honest… there’s no wrong answer 🤍",
+    answers: [
+        "Always 😊",
+        "Most of the time",
+        "I think so",
+        "Maybe…"
+    ]
+},
+
+{
+    text:
+    "Do you feel safe telling me things you don't tell everyone?",
+    hint: "you can take your time",
+    answers: [
+        "Yeah, I do 🤍",
+        "Sometimes",
+        "I’m getting there",
+        "I'm not sure yet"
+    ]
+},
+
+{
+    text:
+    "Do our conversations ever make your day a little better?",
+    hint: "even just a tiny bit?",
+    answers: [
+        "Definitely 🥹",
+        "Sometimes",
+        "More than you know",
+        "Maybe…"
+    ]
+},
+
+{
+    text:
+    "When something exciting happens, do you ever feel like telling me first?",
+    hint: "just curious 👀",
+    answers: [
+        "Yeah 😭",
+        "Sometimes",
+        "I might",
+        "Hmm…"
+    ]
+},
+
+{
+    text:
+    "Do you think there’s something a little different about the connection we have?",
+    hint: "this one is a little harder…",
+    answers: [
+        "I think so 🤍",
+        "Maybe",
+        "I've wondered about it",
+        "I'm not sure"
+    ]
+},
+
+{
+    text:
+    "If you had a really bad day, would you want me around?",
+    hint: "even if you didn't say much",
+    answers: [
+        "Yeah 🫶",
+        "Probably",
+        "I think so",
+        "Maybe"
+    ]
+},
+
+{
+    text:
+    "Do you feel like you can trust me with the things that matter to you?",
+    hint: "last one… promise",
+    answers: [
+        "Yes 🤍",
+        "I think so",
+        "I'm getting there",
+        "Maybe"
+    ]
+}
+
+];
+
+let currentQuestion = 0;
+
+
+function startQuestions(){
+
+    currentQuestion = 0;
+
+    showQuestion();
+
+}
+
+
+function showQuestion(){
+
+    const q = questions[currentQuestion];
+
+    document.getElementById("progress").innerText =
+        String(currentQuestion + 1).padStart(2,"0")
+        + " / "
+        + String(questions.length).padStart(2,"0");
+
+    document.getElementById("questionText").innerText =
+        q.text;
+
+    document.getElementById("questionHint").innerText =
+        q.hint;
+
+    const answers =
+        document.getElementById("answers");
+
+    answers.innerHTML = "";
+
+    q.answers.forEach(answer => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "answer";
+
+        button.innerText = answer;
+
+        button.onclick = () => chooseAnswer(button);
+
+        answers.appendChild(button);
+
+    });
+
+    showScreen("questionScreen");
+
+}
+
+
+/* ================= ANSWER ================= */
+
+function chooseAnswer(button){
+
+    document
+        .querySelectorAll(".answer")
+        .forEach(btn => {
+            btn.disabled = true;
+        });
+
+    button.classList.add("selected");
+
+    setTimeout(() => {
+
+        currentQuestion++;
+
+        if(currentQuestion < questions.length){
+
+            showQuestion();
+
+        }
+        else{
+
+            showTransition();
+
+        }
+
+    }, 650);
+
+}
+
+
+/* ================= FINAL TRANSITION ================= */
+
+function showTransition(){
+
+    const text =
+        document.getElementById("transitionText");
+
+    text.innerText = "Okay…";
+
+    showScreen("transitionScreen");
+
+    setTimeout(() => {
+
+        text.style.animation = "none";
+        void text.offsetWidth;
+        text.style.animation =
+            "revealText 2s forwards";
+
+        text.innerText =
+            "These questions were actually leading somewhere.";
+
+    }, 2200);
+
+    setTimeout(() => {
+
+        text.style.animation = "none";
+        void text.offsetWidth;
+        text.style.animation =
+            "revealText 2s forwards";
+
+        text.innerText = "To something I wanted to say.";
+
+    }, 4800);
+
+    setTimeout(() => {
+
+        showScreen("finalScreen");
+
+    }, 7000);
 
 }
 
